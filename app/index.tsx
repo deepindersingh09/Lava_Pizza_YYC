@@ -1,22 +1,38 @@
 // app/index.tsx
-import { Redirect } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { onAuthStateChanged, User } from 'firebase/auth';
-import { auth } from '../lib/firebase'; // adjust path if needed
+import { useEffect } from 'react';
+import { View, StyleSheet, Image, Dimensions } from 'react-native';
+import { useRouter } from 'expo-router';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../lib/firebase';
 
-export default function Index() {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+const { width, height } = Dimensions.get('window');
+
+export default function Splash() {
+  const router = useRouter();
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
-      setUser(u);
-      setLoading(false);
+      // small delay for a nicer splash feel
+      setTimeout(() => {
+        router.replace(u ? '/start' : '/auth/login');
+      }, 1200); // bumped delay to ~1.2s for better visibility
     });
     return unsub;
   }, []);
 
-  if (loading) return null;
-  if (!user) return <Redirect href="/auth/login" />;
-  return <Redirect href="/(tabs)" />;
+  return (
+    <View style={styles.container}>
+      <Image
+        source={require('../assets/images/splash.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#000', alignItems: 'center', justifyContent: 'center' },
+  // make logo about 70% of screen width, scale height accordingly
+  logo: { width: width * 0.8, height: height * 0.8 },
+});

@@ -5,7 +5,7 @@ import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import * as SplashScreen from 'expo-splash-screen';
 
-// Keep the splash visible until we say otherwise
+// Keep splash visible until we say otherwise
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -15,26 +15,23 @@ export default function RootLayout() {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u);
-      setReady(true);
+
+      // add splash delay (~2s)
+      setTimeout(() => {
+        setReady(true);
+      }, 2000);
     });
     return unsub;
   }, []);
 
-  // Hide the splash as soon as we're ready
+  // hide splash once ready
   useEffect(() => {
     if (ready) {
-      (async () => {
-        try {
-          await SplashScreen.hideAsync();
-        } catch (e) {
-          // no-op: just avoid crashing if called twice
-        }
-      })();
+      SplashScreen.hideAsync().catch(() => {});
     }
   }, [ready]);
 
-  // While not ready, render nothing. Splash stays on screen.
-  if (!ready) return null;
+  if (!ready) return null; // keep splash on screen
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
@@ -42,7 +39,6 @@ export default function RootLayout() {
       <Stack.Screen name="auth/login" />
       <Stack.Screen name="auth/signup" />
       <Stack.Screen name="start" />
-      {/* Add more app pages here */}
     </Stack>
   );
 }
