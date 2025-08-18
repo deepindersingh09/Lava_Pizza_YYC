@@ -2,7 +2,7 @@ import { ScrollView, View, Text, Image, FlatList, TouchableOpacity, StyleSheet }
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
-const USER_NAME = 'Zaiden';
+const USER_NAME = 'Hi, there';
 
 const deals = [
   { id: 'a', title: 'Deal A', price: 24.99, img: require('../../assets/images/menu/menu_pizza.png') },
@@ -48,7 +48,7 @@ export default function HomeScreen() {
       </View>
 
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-        <Text style={styles.hello}>Hello {USER_NAME}!</Text>
+        <Text style={styles.hello}>{USER_NAME}!</Text>
         <Text style={styles.sub}>Let the cheesy goodness begin!</Text>
 
         <Text style={styles.section}>Deals for you</Text>

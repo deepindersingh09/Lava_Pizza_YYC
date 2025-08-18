@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable, Alert, Dimensions, ScrollView } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import { View, Text, StyleSheet, Pressable, Alert, Dimensions, ScrollView, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 
 export default function PickupScreen() {
@@ -9,13 +8,11 @@ export default function PickupScreen() {
   const locations = [
     {
       name: 'Unit 112, 20 Saddlestone Dr, Calgary',
-      latitude: 51.1202,
-      longitude: -113.9574,
+      image: require('../assets/images/store1.png'), 
     },
     {
       name: 'Lava Pizza YYC - 1211 14 St SW #4, Calgary',
-      latitude: 51.041552,
-      longitude: -114.095237,
+      image: require('../assets/images/store2.png'), 
     },
   ];
 
@@ -36,17 +33,11 @@ export default function PickupScreen() {
         <View key={index} style={styles.block}>
           <Text style={styles.address}>{loc.name}</Text>
 
-          <MapView
-            style={styles.map}
-            initialRegion={{
-              latitude: loc.latitude,
-              longitude: loc.longitude,
-              latitudeDelta: 0.01,
-              longitudeDelta: 0.01,
-            }}
-          >
-            <Marker coordinate={{ latitude: loc.latitude, longitude: loc.longitude }} />
-          </MapView>
+          <Image
+            source={loc.image}
+            style={styles.image}
+            resizeMode="cover"
+          />
 
           <Pressable
             style={styles.pickupButton}
@@ -82,16 +73,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingHorizontal: 10,
   },
-  map: {
+  image: {
     width: Dimensions.get('window').width * 0.9,
     height: 220,
     borderRadius: 10,
+    marginBottom: 15,
   },
   pickupButton: {
     backgroundColor: '#FFCC00',
     paddingVertical: 12,
     paddingHorizontal: 20,
-    marginTop: 15,
     borderRadius: 5,
   },
   buttonText: {
