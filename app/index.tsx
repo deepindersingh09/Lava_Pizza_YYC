@@ -12,10 +12,10 @@ export default function Splash() {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
-      // small delay for a nicer splash feel
+      
       setTimeout(() => {
         router.replace(u ? '/start' : '/auth/login');
-      }, 1200); // bumped delay to ~1.2s for better visibility
+      }, 1200);
     });
     return unsub;
   }, []);

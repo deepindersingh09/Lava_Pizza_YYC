@@ -11,7 +11,6 @@ export default function Delivery() {
   const [province, setProvince] = useState('');
   const [country, setCountry] = useState('');
 
-  
   const screenWidth = Dimensions.get('window').width;
   const scooterAnim = useRef(new Animated.Value(-screenWidth / 2)).current;
 
@@ -24,15 +23,17 @@ export default function Delivery() {
   }, []);
 
   const handleSave = () => {
+    // Save your address data if needed (e.g., to state/store/db)
     console.log({ address, apt, city, postal, province, country });
-    router.replace('/'); 
+    // ✅ Go to MENU (Home tab in /(tabs))
+    router.replace('/(tabs)');        // or router.replace('/(tabs)/index') to be explicit
   };
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
-      
+      {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.replace('/start')}>
+        <TouchableOpacity onPress={() => router.replace('/(tabs)')}>
           <Text style={styles.backArrow}>←</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Delivery</Text>
@@ -51,7 +52,7 @@ export default function Delivery() {
             <Text style={styles.label}>City</Text>
             <TextInput style={styles.input} value={city} onChangeText={setCity} />
           </View>
-          <View style={styles.half}>
+          <View style={[styles.half, { marginRight: 0, marginLeft: 10 }]}>
             <Text style={styles.label}>Postal Code</Text>
             <TextInput style={styles.input} value={postal} onChangeText={setPostal} />
           </View>
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginTop: 15,
   },
-  backArrow: { fontSize: 35, marginRight: 15, justifyContent: 'center' }, 
+  backArrow: { fontSize: 35, marginRight: 15, textAlignVertical: 'center' },
   headerTitle: { fontSize: 18, fontWeight: '600' },
 
   form: {
@@ -106,9 +107,9 @@ const styles = StyleSheet.create({
   input: {
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-    paddingVertical: 4,
+    paddingVertical: 6,
     fontSize: 16,
-    marginBottom: 8,
+    marginBottom: 10,
   },
   row: {
     flexDirection: 'row',

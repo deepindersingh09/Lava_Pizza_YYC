@@ -8,11 +8,11 @@ export default function PickupScreen() {
   const locations = [
     {
       name: 'Unit 112, 20 Saddlestone Dr, Calgary',
-      image: require('../assets/images/store1.png'), 
+      image: require('../assets/images/store1.png'),
     },
     {
       name: 'Lava Pizza YYC - 1211 14 St SW #4, Calgary',
-      image: require('../assets/images/store2.png'), 
+      image: require('../assets/images/store2.png'),
     },
   ];
 
@@ -20,7 +20,8 @@ export default function PickupScreen() {
     Alert.alert('Pickup Selected', `You chose: ${locationName}`, [
       {
         text: 'OK',
-        onPress: () => router.replace('/start'), 
+        // Go to the Menu (Home tab in /(tabs))
+        onPress: () => router.replace('/(tabs)'), // or router.replace('/(tabs)/index') to be explicit
       },
     ]);
   };
