@@ -1,6 +1,7 @@
 import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView, Animated, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useState, useRef, useEffect } from 'react';
+import React from 'react';
 
 export default function Delivery() {
   const router = useRouter();
@@ -23,10 +24,8 @@ export default function Delivery() {
   }, []);
 
   const handleSave = () => {
-    // Save your address data if needed (e.g., to state/store/db)
     console.log({ address, apt, city, postal, province, country });
-    // ✅ Go to MENU (Home tab in /(tabs))
-    router.replace('/(tabs)');        // or router.replace('/(tabs)/index') to be explicit
+    router.replace('/(tabs)');   
   };
 
   return (
