@@ -1,6 +1,6 @@
 // app/_layout.tsx
+import React, { useEffect, useState } from 'react';
 import { Stack } from 'expo-router';
-import { useEffect, useState } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import * as SplashScreen from 'expo-splash-screen';
@@ -15,23 +15,16 @@ export default function RootLayout() {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u);
-
-      // add splash delay (~2s)
-      setTimeout(() => {
-        setReady(true);
-      }, 2000);
+      setTimeout(() => setReady(true), 2000);
     });
     return unsub;
   }, []);
 
-  // hide splash once ready
   useEffect(() => {
-    if (ready) {
-      SplashScreen.hideAsync().catch(() => {});
-    }
+    if (ready) SplashScreen.hideAsync().catch(() => {});
   }, [ready]);
 
-  if (!ready) return null; // keep splash on screen
+  if (!ready) return null;
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
@@ -39,6 +32,8 @@ export default function RootLayout() {
       <Stack.Screen name="auth/login" />
       <Stack.Screen name="auth/signup" />
       <Stack.Screen name="start" />
+      {/* ✅ Mount the nested favourites tabs section */}
+      <Stack.Screen name="favourites" />
     </Stack>
   );
 }
