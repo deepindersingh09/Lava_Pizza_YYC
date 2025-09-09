@@ -25,15 +25,19 @@ export default function Delivery() {
   const handleSave = () => {
     // Save your address data if needed (e.g., to state/store/db)
     console.log({ address, apt, city, postal, province, country });
+<<<<<<< Updated upstream
     // ✅ Go to MENU (Home tab in /(tabs))
     router.replace('/(tabs)');        // or router.replace('/(tabs)/index') to be explicit
+=======
+    router.replace('./(tabs)');   
+>>>>>>> Stashed changes
   };
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.replace('/(tabs)')}>
+        <TouchableOpacity onPress={() => router.replace('./(tabs)')}>
           <Text style={styles.backArrow}>←</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Delivery</Text>
