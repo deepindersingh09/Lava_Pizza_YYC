@@ -1,3 +1,4 @@
+import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Pressable, ImageBackground } from 'react-native';
 import { useRouter } from 'expo-router';
 import { signOut } from 'firebase/auth';

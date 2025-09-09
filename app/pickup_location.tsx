@@ -20,7 +20,12 @@ export default function PickupScreen() {
     Alert.alert('Pickup Selected', `You chose: ${locationName}`, [
       {
         text: 'OK',
+<<<<<<< Updated upstream
         onPress: () => router.replace('/(tabs)'), 
+=======
+        // Go to the Menu (Home tab in /(tabs))
+        onPress: () => router.replace('/(tabs)'), // or router.replace('/(tabs)/index') to be explicit
+>>>>>>> Stashed changes
       },
     ]);
   };
