@@ -1,6 +1,7 @@
 import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView, Animated, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useState, useRef, useEffect } from 'react';
+import React from 'react';
 
 export default function Delivery() {
   const router = useRouter();

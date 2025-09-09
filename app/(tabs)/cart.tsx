@@ -1,4 +1,7 @@
+// By Ravneet Kaur 
+import { router } from "expo-router";
 import React, { useState } from "react";
+import { MaterialIcons, Ionicons } from "@expo/vector-icons"; 
 import {
   View,
   Text,
@@ -57,7 +60,7 @@ export default function Cart() {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity>
-          <Text style={styles.backArrow}>←</Text>
+          <Ionicons name="arrow-back" size={28} color="black"/> 
         </TouchableOpacity>
         <Text style={styles.headerTitle}>My Cart</Text>
         <Text style={styles.itemCount}>{items.length} items</Text>
@@ -99,7 +102,7 @@ export default function Cart() {
 
             {/* Delete Button */}
             <TouchableOpacity onPress={() => removeItem(item.id)}>
-              <Text style={styles.deleteIcon}>🗑️</Text>
+              <MaterialIcons name="delete" size={24} color="black"/>
             </TouchableOpacity>
           </View>
         ))}
@@ -108,17 +111,18 @@ export default function Cart() {
       {/* Subtotal + Checkout */}
       <View style={styles.footer}>
         <Text style={styles.subtotal}>Subtotal: ${subtotal}</Text>
-        <TouchableOpacity style={styles.checkoutButton}>
+        <TouchableOpacity style={styles.checkoutButton} onPress={() => router.push("/checkout")}>
           <Text style={styles.checkoutText}>Checkout</Text>
         </TouchableOpacity>
       </View>
 
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
-        <Text style={styles.navItem}>🏠</Text>
-        <Text style={styles.navItem}>🍕</Text>
-        <Text style={styles.navItem}>🛒</Text>
-        <Text style={styles.navItem}>👤</Text>
+        <Ionicons name="home" size={24} color="black"/>
+        <MaterialIcons name="local-pizza" size={24} color="black"/>
+        <Ionicons name="cart" size={24} color="black"/>
+        <Ionicons name="person" size={24} color="black"/>
+      
       </View>
     </View>
   );
