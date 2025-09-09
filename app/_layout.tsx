@@ -32,7 +32,6 @@ export default function RootLayout() {
       <Stack.Screen name="auth/login" />
       <Stack.Screen name="auth/signup" />
       <Stack.Screen name="start" />
-      {/* ✅ Mount the nested favourites tabs section */}
       <Stack.Screen name="favourites" />
     </Stack>
   );
