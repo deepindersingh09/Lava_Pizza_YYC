@@ -26,8 +26,12 @@ export default function Delivery() {
     // Save your address data if needed (e.g., to state/store/db)
     console.log({ address, apt, city, postal, province, country });
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     // ✅ Go to MENU (Home tab in /(tabs))
     router.replace('/(tabs)');        // or router.replace('/(tabs)/index') to be explicit
+=======
+    router.replace('./(tabs)');   
+>>>>>>> Stashed changes
 =======
     router.replace('./(tabs)');   
 >>>>>>> Stashed changes
