@@ -1,4 +1,9 @@
+<<<<<<< Updated upstream:app/splash-screen.tsx
 // app/splash-screen.tsx
+=======
+// app/index.tsx
+import React from 'react';
+>>>>>>> Stashed changes:app/index.tsx
 import { useEffect } from 'react';
 import { View, StyleSheet, Image, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
