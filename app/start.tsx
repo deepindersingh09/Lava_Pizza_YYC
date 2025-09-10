@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Pressable, ImageBackground } 
 import { useRouter } from 'expo-router';
 import { signOut } from 'firebase/auth';
 import { auth } from '../lib/firebase';
-import React from 'react';
+
 
 export default function Start() {
   const router = useRouter();

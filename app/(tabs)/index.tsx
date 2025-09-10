@@ -1,12 +1,8 @@
 import { ScrollView, View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import { useNavigation } from 'expo-router';
-import { NativeStackNavigationProp } from 'react-native-screens/lib/typescript/native-stack/types';
-import { RootStackParamList } from '../app';
+import React from 'react';  // Ensure React is imported
 
-const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 const USER_NAME = 'Hi, there';
 
 const deals = [
