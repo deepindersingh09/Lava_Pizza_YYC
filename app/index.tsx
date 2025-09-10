@@ -1,15 +1,10 @@
-<<<<<<< Updated upstream:app/splash-screen.tsx
-// app/splash-screen.tsx
-=======
 // app/index.tsx
 import React from 'react';
->>>>>>> Stashed changes:app/index.tsx
 import { useEffect } from 'react';
 import { View, StyleSheet, Image, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../lib/firebase';
-import React from 'react';
 
 const { width, height } = Dimensions.get('window');
 
@@ -39,5 +34,6 @@ export default function Splash() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#000', alignItems: 'center', justifyContent: 'center' },
+  // make logo about 70% of screen width, scale height accordingly
   logo: { width: width * 0.8, height: height * 0.8 },
 });

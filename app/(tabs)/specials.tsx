@@ -1,8 +1,4 @@
 import React from 'react';
-<<<<<<< Updated upstream
-import { View, Text } from 'react-native';
-export default function Screen(){ return <View style={{flex:1,alignItems:'center',justifyContent:'center'}}><Text>Coming soon</Text></View>; }
-=======
 import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
@@ -144,4 +140,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff7e6',
   },
 });
->>>>>>> Stashed changes

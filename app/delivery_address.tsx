@@ -25,11 +25,7 @@ export default function Delivery() {
 
   const handleSave = () => {
     console.log({ address, apt, city, postal, province, country });
-<<<<<<< Updated upstream
-    router.replace('/(tabs)');   
-=======
-    router.replace('./(tabs)');   
->>>>>>> Stashed changes
+    router.replace('/(tabs)');
   };
 
   return (

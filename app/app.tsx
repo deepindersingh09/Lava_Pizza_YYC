@@ -1,9 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './(tabs)/homeScreen';
-import Menu from './main-menu';
-import IndividualItem from './screens/individual-item';
+import HomeScreen from './(tabs)';
 import PickupScreen from './pickup_location';
 
 
@@ -21,8 +19,6 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Menu" component={Menu} options={{ title: 'Menu' }} />
-        <Stack.Screen name="Item" component={IndividualItem} options={{ title: 'Pizza Details' }} />
         <Stack.Screen name="Pickup" component={PickupScreen} options={{ title: 'Pickup' }} />
       </Stack.Navigator>
     </NavigationContainer>
