@@ -4,13 +4,13 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
+  TouchableOpacity, 
   ScrollView,
-} from "react-native";
-import { useRouter } from "expo-router";
+} from "react-native"; 
+import { useRouter } from "expo-router"; 
 
-export default function Checkout() {
-  const router = useRouter();
+export default function Checkout() {  
+  const router = useRouter();       
   const [selectedPayment, setSelectedPayment] = useState(1);
 
   return (
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     fontSize: 26,
-  },
+  },            
   headerTitle: {
     fontSize: 18,
     fontWeight: "bold",
