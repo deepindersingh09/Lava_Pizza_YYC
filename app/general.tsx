@@ -10,7 +10,7 @@ export default function General() {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
+      {/* Header */} 
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={28} color="black"/>

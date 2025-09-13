@@ -1,46 +1,33 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { useRouter } from 'expo-router';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+// By Ravneet Kaur
+import React from "react";
+import { useRouter } from "expo-router";
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 
-export default function Account() {
+export default function Profile() {
   const router = useRouter();
-
-  const OptionRow = ({
-    label,
-    onPress,
-  }: {
-    label: string;
-    onPress?: () => void;
-  }) => (
-    <TouchableOpacity style={styles.optionRow} onPress={onPress}>
-      <Text style={styles.optionText}>{label}</Text>
-      <Ionicons name="chevron-forward" size={22} color="black" />
-    </TouchableOpacity>
-  );
-
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity>
           <Ionicons name="arrow-back" size={28} color="black" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Account</Text>
-        {/* spacer to keep title centered */}
-        <View style={{ width: 28 }} />
+        <View style={{ width: 30 }}></View>
+        {/* Empty space so that account text could stay centered */}
       </View>
 
-      {/* Profile */}
+      {/* Profile Page */}
       <View style={styles.profileSection}>
         <Image
-          source={require('../../assets/images/menu/profile.png')}
+          source={require("../../assets/images/profile_picture.png")}
           style={styles.profilepicture}
         />
+
         <View style={styles.profileText}>
           <View style={styles.nameRow}>
             <Text style={styles.name}>Zaiden</Text>
-            <TouchableOpacity onPress={() => {/* TODO: edit profile */}}>
+            <TouchableOpacity>
               <MaterialIcons name="edit" size={20} color="black" />
             </TouchableOpacity>
           </View>
@@ -49,44 +36,32 @@ export default function Account() {
         </View>
       </View>
 
-      {/* Quick links (Favourites / History) */}
-      <View style={styles.quickBlock}>
-        <TouchableOpacity
-          style={styles.quickRow}
-          onPress={() => router.push('/favourites')}
-        >
-          <View style={styles.left}>
-            <Ionicons name="heart-outline" size={20} color="#000" />
-            <Text style={styles.quickLabel}>Favourites</Text>
-          </View>
-          <Ionicons name="chevron-forward" size={18} color="#888" />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.quickRow}
-          onPress={() => router.push('/history')}
-        >
-          <View style={styles.left}>
-            <Ionicons name="time-outline" size={20} color="#000" />
-            <Text style={styles.quickLabel}>Order History</Text>
-          </View>
-          <Ionicons name="chevron-forward" size={18} color="#888" />
-        </TouchableOpacity>
-      </View>
-
-      {/* Options list */}
+      {/* Options */}
       <View style={styles.options}>
-        <OptionRow label="Notifications" onPress={() => {/* TODO */}} />
-        <OptionRow label="General" onPress={() => router.push('/general')} />
-        <OptionRow label="Payment" onPress={() => router.push('/checkout')} />
-        <OptionRow
-          label="Update Delivery Info"
-          onPress={() => router.push('/delivery_address')}
-        />
+        {[
+          "Notifications",
+          "General",
+          "Payment",
+          "Order History",
+          "Update Delivery Info",
+        ].map((option, index) => (
+          <TouchableOpacity
+            key={index}
+            style={styles.optionRow}
+            onPress={() => {
+              if (option === "General") {
+                router.push("/general");
+              }
+            }}
+          >
+            <Text style={styles.optionText}>{option}</Text>
+            <Ionicons name="chevron-forward" size={22} color="black"></Ionicons>
+          </TouchableOpacity>
+        ))}
       </View>
 
-      {/* Logout */}
-      <TouchableOpacity style={styles.logoutButton} onPress={() => {/* TODO: signOut */}}>
+      {/* Logout Button */}
+      <TouchableOpacity style={styles.logoutButton}>
         <Text style={styles.logoutText}>Log Out of Account</Text>
       </TouchableOpacity>
     </View>
@@ -94,47 +69,116 @@ export default function Account() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fbf3e6', padding: 16, paddingTop: 40 },
+  container: {
+    flex: 1,
+    backgroundColor: "fff",
+    padding: 16,
+    paddingTop: 40,
+  },
 
   header: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 30,
   },
-  headerTitle: { fontSize: 18, fontWeight: 'bold' },
 
-  profileSection: { flexDirection: 'row', alignItems: 'center', marginBottom: 20 },
-  profilepicture: { width: 70, height: 70, borderRadius: 35, marginRight: 15, marginLeft: 6 },
-  profileText: { flex: 1, marginLeft: 6 },
-  nameRow: { flexDirection: 'row', alignItems: 'center' },
-  name: { fontSize: 20, fontWeight: 'bold', marginRight: 8 },
-  email: { fontSize: 16, fontWeight: '600' },
-  phone: { fontSize: 16, fontWeight: '600', color: 'gray' },
+  backArrow: {
+    fontSize: 30,
+  },
 
-  quickBlock: {
-    backgroundColor: '#fff', borderRadius: 14, overflow: 'hidden', marginBottom: 16,
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
-  quickRow: {
-    backgroundColor: '#fff',
-    paddingVertical: 14, paddingHorizontal: 16,
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: '#eee',
+
+  profileSection: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 30,
   },
-  left: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  quickLabel: { fontSize: 16 },
+
+  profilepicture: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    marginRight: 15,
+    marginLeft: 25,
+  },
+
+  profileText: {
+    flex: 1,
+    marginLeft: 10,
+  },
+
+  nameRow: {
+    flexDirection: "row",
+    alignItems: "center", 
+  },
+
+  name: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginRight: 8,
+    marginLeft: 2,
+  },
+
+  editIcon: {
+    fontSize: 16,
+  },
+
+  email: {
+    fontSize: 16,
+    fontWeight: "600",
+    marginLeft: 2,
+  },
+
+  phone: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "gray",
+    marginLeft: 2,
+  },
 
   options: {
-    backgroundColor: '#fff', borderRadius: 14, overflow: 'hidden', marginBottom: 20,
-    borderTopWidth: StyleSheet.hairlineWidth, borderColor: '#ddd',
+    borderTopWidth: 1,
+    borderColor: "#ddd",
+    marginBottom: 30,
   },
+
   optionRow: {
-    flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
-    paddingVertical: 16, paddingHorizontal: 16,
-    borderBottomWidth: StyleSheet.hairlineWidth, borderColor: '#ddd',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderColor: "#ddd",
+    fontSize: 26,
   },
-  optionText: { fontSize: 16 },
+
+  optionText: {
+    fontSize: 16,
+  },
+
+  arrow: {
+    fontSize: 22,
+    color: "black",
+    marginRight: 15,
+  },
 
   logoutButton: {
-    backgroundColor: '#FFD700', padding: 15, borderRadius: 8, alignItems: 'center',
-    shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 4, elevation: 3,
+    backgroundColor: "#FFD700",
+    padding: 15,
+    borderRadius: 8,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
-  logoutText: { fontSize: 16, fontWeight: 'bold' },
+
+  logoutText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
 });
