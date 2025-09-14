@@ -4,6 +4,10 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'reac
 import { Link, useRouter } from 'expo-router';
 import { signInWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
 export default function Login() {
   const router = useRouter();

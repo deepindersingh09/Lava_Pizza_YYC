@@ -1,7 +1,10 @@
 import React from 'react';
 import { ScrollView, View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+<<<<<<< Updated upstream
 import { Ionicons } from '@expo/vector-icons';
+=======
+>>>>>>> Stashed changes
 
 const USER_NAME = 'Hi, there';
 
@@ -14,7 +17,7 @@ const deals = [
 
 const specials = [
   { id: 'sp1', title: 'Samosa Poutine', img: require('../../assets/images/menu/samosa_poutine.jpg') },
-  { id: 'sp2', title: 'Shahi Fries', img: require('../../assets/images/menu/shahi_fries.png')},
+  { id: 'sp2', title: 'Shahi Fries', img: require('../../assets/images/menu/shahi_fries.png') },
   { id: 'sp3', title: 'Lava Tikki', img: require('../../assets/images/menu/Lava_Tikki.png') },
   { id: 'sp4', title: 'Devil Fries', img: require('../../assets/images/menu/devil_fries.jpg') },
 ];
@@ -30,7 +33,7 @@ const categories = [
   { id: 'c8', title: 'Poutines', img: require('../../assets/images/menu/poutines.png') },
   { id: 'c9', title: 'Pizza Subs', img: require('../../assets/images/menu/pizza_subs.png') },
   { id: 'c10', title: 'Shawarma Wraps', img: require('../../assets/images/menu/shawarma_wraps.png') },
-  { id: 'c11', title: 'Slides', img: require('../../assets/images/menu/sides.png') },
+  { id: 'c11', title: 'Sides', img: require('../../assets/images/menu/sides.png') }, // fixed label
   { id: 'c12', title: 'Walk-In Specials', img: require('../../assets/images/menu/walk_in_specials.png') },
   { id: 'c13', title: 'Meals', img: require('../../assets/images/menu/meals.png') },
   { id: 'c14', title: 'Salads', img: require('../../assets/images/menu/salads.png') },
@@ -39,15 +42,10 @@ const categories = [
 
 const imgSrc = (img: any) => (typeof img === 'string' ? { uri: img } : img);
 
-
 export default function HomeScreen() {
   return (
-    <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
-      <View style={styles.topBar}>
-        <TouchableOpacity><Ionicons name="menu" size={26} color="#000" /></TouchableOpacity>
-        <TouchableOpacity><Ionicons name="notifications-outline" size={26} color="#000" /></TouchableOpacity>
-      </View>
-
+    // Tabs header is visible, so we only need left/right/bottom safe areas
+    <SafeAreaView style={styles.safe} edges={['left', 'right', 'bottom']}>
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
         <Text style={styles.hello}>{USER_NAME}!</Text>
         <Text style={styles.sub}>Let the cheesy goodness begin!</Text>
@@ -84,38 +82,135 @@ export default function HomeScreen() {
         />
 
         <Text style={styles.section}>Explore the menu</Text>
-        <View style={styles.grid}>
-          {categories.map((c) => (
-            <TouchableOpacity key={c.id} style={styles.gridCard} activeOpacity={0.9}>
-              <Image source={imgSrc(c.img)} style={styles.gridImage} />
-              <Text style={styles.gridTitle}>{c.title}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#fff' },
-  topBar: { paddingHorizontal: 16, paddingTop: 6, paddingBottom: 6, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  container: { paddingHorizontal: 16, paddingBottom: 120 },
-  hello: { fontSize: 22, fontWeight: '800', color: '#d9a300', marginTop: 6 },
-  sub: { fontSize: 14, color: '#222', marginBottom: 14 },
-  section: { fontSize: 18, fontWeight: '700', color: '#000', marginTop: 8, marginBottom: 10 },
-
-  dealCard: { width: 120, backgroundColor: '#fff', borderRadius: 14, padding: 10, alignItems: 'center', borderWidth: 1, borderColor: '#eee', shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 6, elevation: 2 },
-  dealImage: { width: 84, height: 84, borderRadius: 42, marginBottom: 6 },
-  dealTitle: { fontSize: 12, color: '#333' },
-  dealPrice: { fontSize: 12, fontWeight: '700', color: '#333' },
-
-  specialCard: { width: 150, backgroundColor: '#fff', borderRadius: 14, padding: 10, borderWidth: 1, borderColor: '#eee' },
-  specialImage: { width: '100%', height: 90, borderRadius: 10, marginBottom: 6 },
-  specialTitle: { fontSize: 12, color: '#333' },
-
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
-  gridCard: { width: '47%', backgroundColor: '#fff', borderRadius: 14, padding: 10, borderWidth: 1, borderColor: '#eee' },
-  gridImage: { width: '100%', height: 140, borderRadius: 10, marginBottom: 8 },
-  gridTitle: { fontSize: 14, fontWeight: '600', color: '#333' },
-});
+                <View style={styles.grid}>
+                  {categories.map((c) => (
+                    <TouchableOpacity key={c.id} style={styles.gridCard} activeOpacity={0.9}>
+                      <Image source={imgSrc(c.img)} style={styles.gridImage} />
+                      <Text numberOfLines={2} style={styles.gridTitle}>{c.title}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </ScrollView>
+            </SafeAreaView>
+          );
+        }
+        
+        const styles = StyleSheet.create({
+                safe: {
+                  flex: 1,
+                  backgroundColor: '#fff',
+                },
+                container: {
+                  paddingVertical: 16,
+                  paddingHorizontal: 0,
+                },
+                hello: {
+                  fontSize: 28,
+                  fontWeight: 'bold',
+                  marginLeft: 16,
+                  marginTop: 8,
+                  color: '#222',
+                },
+                sub: {
+                  fontSize: 16,
+                  marginLeft: 16,
+                  marginBottom: 16,
+                  color: '#666',
+                },
+                section: {
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  marginLeft: 16,
+                  marginTop: 24,
+                  marginBottom: 12,
+                  color: '#222',
+                },
+                dealCard: {
+                  width: 140,
+                  backgroundColor: '#fff',
+                  borderRadius: 12,
+                  padding: 12,
+                  alignItems: 'center',
+                  elevation: 2,
+                  shadowColor: '#000',
+                  shadowOpacity: 0.08,
+                  shadowRadius: 6,
+                  shadowOffset: { width: 0, height: 2 },
+                },
+                dealImage: {
+                  width: 80,
+                  height: 80,
+                  borderRadius: 40,
+                  marginBottom: 8,
+                },
+                dealTitle: {
+                  fontSize: 16,
+                  fontWeight: '600',
+                  color: '#222',
+                  marginBottom: 4,
+                },
+                dealPrice: {
+                  fontSize: 15,
+                  color: '#e53935',
+                  fontWeight: 'bold',
+                },
+                specialCard: {
+                  width: 120,
+                  backgroundColor: '#fff',
+                  borderRadius: 12,
+                  padding: 10,
+                  alignItems: 'center',
+                  elevation: 2,
+                  shadowColor: '#000',
+                  shadowOpacity: 0.08,
+                  shadowRadius: 6,
+                  shadowOffset: { width: 0, height: 2 },
+                },
+                specialImage: {
+                  width: 70,
+                  height: 70,
+                  borderRadius: 35,
+                  marginBottom: 8,
+                },
+                specialTitle: {
+                  fontSize: 14,
+                  fontWeight: '600',
+                  color: '#222',
+                  textAlign: 'center',
+                },
+                grid: {
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  justifyContent: 'space-between',
+                  paddingHorizontal: 8,
+                  marginTop: 8,
+                  marginBottom: 24,
+                },
+                gridCard: {
+                  width: '30%',
+                  aspectRatio: 1,
+                  backgroundColor: '#fff',
+                  borderRadius: 12,
+                  marginBottom: 12,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  elevation: 2,
+                  shadowColor: '#000',
+                  shadowOpacity: 0.08,
+                  shadowRadius: 6,
+                  shadowOffset: { width: 0, height: 2 },
+                  padding: 8,
+                },
+                gridImage: {
+                  width: 50,
+                  height: 50,
+                  marginBottom: 6,
+                  borderRadius: 8,
+                },
+                gridTitle: {
+                  fontSize: 13,
+                  fontWeight: '600',
+                  color: '#222',
+                  textAlign: 'center',
+                },
+              });
