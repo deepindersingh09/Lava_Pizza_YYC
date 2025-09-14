@@ -1,11 +1,12 @@
 // app/_layout.tsx
 import React, { useEffect, useState } from 'react';
+import { Drawer } from 'expo-router/drawer';
 import { Stack } from 'expo-router';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { auth } from '../lib/firebase';
 import * as SplashScreen from 'expo-splash-screen';
+import { auth } from '../lib/firebase';
+import SideMenu from '../components/sidemenu';
 
-// Keep splash visible until we say otherwise
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -13,26 +14,34 @@ export default function RootLayout() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => {
+    const unsub = onAuthStateChanged(auth, u => {
       setUser(u);
-      setTimeout(() => setReady(true), 2000);
+      setTimeout(() => setReady(true), 600);
     });
     return unsub;
   }, []);
-
-  useEffect(() => {
-    if (ready) SplashScreen.hideAsync().catch(() => {});
-  }, [ready]);
-
+  useEffect(() => { if (ready) SplashScreen.hideAsync().catch(() => {}); }, [ready]);
   if (!ready) return null;
 
+  if (!user) {
+    return (
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="auth/login" />
+        <Stack.Screen name="auth/signup" />
+      </Stack>
+    );
+  }
+
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="index" />
-      <Stack.Screen name="auth/login" />
-      <Stack.Screen name="auth/signup" />
-      <Stack.Screen name="start" />
-      <Stack.Screen name="favourites" />
-    </Stack>
+    <Drawer
+      drawerContent={props => <SideMenu {...props} />}
+      screenOptions={{ headerShown: false, drawerType: 'front', drawerStyle: { width: 320, backgroundColor: '#faf6ea' } }}
+    >
+      <Drawer.Screen name="(tabs)" />
+      <Drawer.Screen name="favourites" options={{ drawerItemStyle: { display: 'none' } }} />
+      <Drawer.Screen name="history"    options={{ drawerItemStyle: { display: 'none' } }} />
+      <Drawer.Screen name="wallet"     options={{ drawerItemStyle: { display: 'none' } }} />
+      <Drawer.Screen name="notifications" options={{ drawerItemStyle: { display: 'none' } }} />
+    </Drawer>
   );
 }
