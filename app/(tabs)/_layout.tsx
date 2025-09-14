@@ -6,6 +6,7 @@ import { TouchableOpacity, View } from 'react-native';
 export default function TabsLayout() {
   // ✅ Access parent navigation so we can open the drawer
   const navigation = useNavigation();
+
   return (
     <Tabs
       screenOptions={{
