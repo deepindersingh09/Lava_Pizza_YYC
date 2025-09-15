@@ -33,7 +33,7 @@ const Row = ({
 export default function SideMenu(props: DrawerContentComponentProps) {
   const router = useRouter();
 
-  const go = (path: string) => {
+  const go = (path: Parameters<typeof router.push>[0]) => {
     props.navigation.closeDrawer();
     router.push(path);
   };
