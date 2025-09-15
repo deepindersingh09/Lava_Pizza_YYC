@@ -1,4 +1,4 @@
-// app/(tabs)/notifications.tsx (or wherever you placed it)
+// app/(tabs)/notification.tsx
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   View,
@@ -11,12 +11,11 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 
-// ✅ FIX: file name was "NotoficationCard". Use "NotificationCard".
+// Corrected import (file renamed from NotoficationCard -> NotificationCard)
 import NotificationCard, {
   NotificationItem,
-} from '../../components/NotoficationCard';
+} from '../../components/NotificationCard';
 
-// Key used to persist notifications in local storage
 const STORAGE_KEY = '@lava_pizza_notifications_v1';
 
 // Seed data used when nothing exists in storage yet
@@ -49,10 +48,8 @@ const seed: NotificationItem[] = [
   },
 ];
 
-export default function NotificationsScreen() {
-  // The list of notifications
+export default function NotificationScreen() {
   const [items, setItems] = useState<NotificationItem[]>([]);
-  // Pull-to-refresh state
   const [refreshing, setRefreshing] = useState(false);
 
   // Load from AsyncStorage (or seed on first run)

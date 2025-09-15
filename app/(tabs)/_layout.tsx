@@ -1,7 +1,7 @@
-import React from 'react';
-import { Tabs, useNavigation } from 'expo-router';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { TouchableOpacity, View } from 'react-native';
+import React from "react";
+import { TouchableOpacity, Pressable, View } from "react-native";
+import { Tabs, Link, useNavigation } from "expo-router";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function TabsLayout() {
   // ✅ Access parent navigation so we can open the drawer
@@ -10,9 +10,9 @@ export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        // ✅ Show a custom header with left/right actions
+        // ✅ Custom header with left/right actions
         headerShown: true,
-        headerTitle: '', // no title text, just icons
+        headerTitle: "", // no title text, just icons
         headerLeft: () => (
           <TouchableOpacity
             style={{ paddingHorizontal: 12 }}
@@ -22,26 +22,28 @@ export default function TabsLayout() {
           </TouchableOpacity>
         ),
         headerRight: () => (
-          <View style={{ paddingHorizontal: 12 }}>
-            <Ionicons name="notifications-outline" size={22} color="#111" />
-          </View>
+          <Link href="/notification" asChild>
+            <Pressable hitSlop={10} style={{ marginRight: 16 }}>
+              <Ionicons name="notifications-outline" size={22} color="#111" />
+            </Pressable>
+          </Link>
         ),
         headerStyle: {
-          backgroundColor: '#fbf3e6',
+          backgroundColor: "#fbf3e6",
         },
         headerShadowVisible: false,
 
         // ✅ Bottom tab bar styling
-        tabBarActiveTintColor: '#000',
-        tabBarInactiveTintColor: '#888',
+        tabBarActiveTintColor: "#000",
+        tabBarInactiveTintColor: "#888",
         tabBarStyle: {
           height: 64,
           borderTopLeftRadius: 24,
           borderTopRightRadius: 24,
           paddingBottom: 10,
           paddingTop: 8,
-          backgroundColor: '#fbf3e6',
-          position: 'absolute',
+          backgroundColor: "#fbf3e6",
+          position: "absolute",
         },
         tabBarLabelStyle: { fontSize: 12 },
       }}
@@ -50,7 +52,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: "Home",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
@@ -61,7 +63,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="specials"
         options={{
-          title: 'Specials',
+          title: "Specials",
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="food" size={size} color={color} />
           ),
@@ -72,7 +74,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="cart"
         options={{
-          title: 'Cart',
+          title: "Cart",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="cart-outline" size={size} color={color} />
           ),
@@ -83,23 +85,15 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="account"
         options={{
-          title: 'Account',
+          title: "Account",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-circle-outline" size={size} color={color} />
           ),
         }}
       />
 
-      {/* ✅ Notifications Tab (optional) */}
-      <Tabs.Screen
-        name="notifications"
-        options={{
-          title: 'Alerts',
-          tabBarIcon: ({ size, color }) => (
-            <Ionicons name="notifications" size={size} color={color} />
-          ),
-        }}
-      />
+      {/* 🔕 Hidden notifications route (navigated via headerRight) */}
+      <Tabs.Screen name="notification" options={{ href: null }} />
     </Tabs>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -49,9 +49,11 @@ export default function OrdersList() {
         <Text style={styles.code}>{item.code}</Text>
         <Text style={styles.stage}>{stageText[item.stage]}</Text>
       </View>
+
       <Text style={styles.items} numberOfLines={1}>
         {item.items.join(' · ')}
       </Text>
+
       <View style={styles.row}>
         <Ionicons name="time-outline" size={14} color="#666" />
         <Text style={styles.meta}>
