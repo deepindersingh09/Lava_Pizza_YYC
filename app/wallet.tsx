@@ -45,9 +45,13 @@ export default function Wallet() {
   const remove = (id: string) => {
     Alert.alert('Remove card?', 'You can add it again later.', [
       { text: 'Cancel', style: 'cancel' },
-      { text: 'Remove', style: 'destructive', onPress: async () => {
+      {
+        text: 'Remove',
+        style: 'destructive',
+        onPress: async () => {
           await persist(cards.filter(c => c.id !== id));
-        } },
+        },
+      },
     ]);
   };
 
@@ -68,7 +72,7 @@ export default function Wallet() {
 
   return (
     <SafeAreaView style={styles.safe} edges={['left','right','bottom']}>
-      {/* Simple header (root stack hides headers) */}
+      {/* Header (if your root stack hides headers) */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} color="#111" />
