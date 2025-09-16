@@ -1,7 +1,7 @@
-// By Ravneet Kaur 
+// By Ravneet Kaur
 import { router } from "expo-router";
 import React, { useState } from "react";
-import { MaterialIcons, Ionicons } from "@expo/vector-icons"; 
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import {
   View,
   Text,
@@ -16,13 +16,24 @@ export default function Cart() {
     { id: 1, name: "Fries", price: 6.99, quantity: 1 },
     { id: 2, name: "Lava Tikki", price: 12.99, quantity: 1 },
     { id: 3, name: "Choco Lava Cake", price: 9.98, quantity: 2 },
-    { id: 4, name: "Volcanic Pizza", price: 21.99, quantity: 1, details: ["Medium", "Creamy Garlic Dip", "Gluten Free"],},
-    { id: 5, name: "Garlic Bread", price: 15.99, quantity: 1}, 
-    { id: 6, name: "Samosa Poutine", price: 8.99, quantity: 1}, 
-    { id: 7, name: "Garlic Bread", price: 15.99, quantity: 1}, 
-    { id: 8, name: "Samosa Poutine", price: 8.99, quantity: 1}, 
-    { id: 9, name: "Volcanic Pizza", price: 21.99, quantity: 1, details: ["Medium", "Creamy Garlic Dip", "Gluten Free"],},
-
+    {
+      id: 4,
+      name: "Volcanic Pizza",
+      price: 21.99,
+      quantity: 1,
+      details: ["Medium", "Creamy Garlic Dip", "Gluten Free"],
+    },
+    { id: 5, name: "Garlic Bread", price: 15.99, quantity: 1 },
+    { id: 6, name: "Samosa Poutine", price: 8.99, quantity: 1 },
+    { id: 7, name: "Garlic Bread", price: 15.99, quantity: 1 },
+    { id: 8, name: "Samosa Poutine", price: 8.99, quantity: 1 },
+    {
+      id: 9,
+      name: "Volcanic Pizza",
+      price: 21.99,
+      quantity: 1,
+      details: ["Medium", "Creamy Garlic Dip", "Gluten Free"],
+    },
   ]);
 
   // Increase quantity
@@ -60,7 +71,7 @@ export default function Cart() {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity>
-          <Ionicons name="arrow-back" size={28} color="black"/> 
+          <Ionicons name="arrow-back" size={28} color="black" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>My Cart</Text>
         <Text style={styles.itemCount}>{items.length} items</Text>
@@ -102,7 +113,7 @@ export default function Cart() {
 
             {/* Delete Button */}
             <TouchableOpacity onPress={() => removeItem(item.id)}>
-              <MaterialIcons name="delete" size={24} color="black"/>
+              <MaterialIcons name="delete" size={24} color="black" />
             </TouchableOpacity>
           </View>
         ))}
@@ -111,18 +122,20 @@ export default function Cart() {
       {/* Subtotal + Checkout */}
       <View style={styles.footer}>
         <Text style={styles.subtotal}>Subtotal: ${subtotal}</Text>
-        <TouchableOpacity style={styles.checkoutButton} onPress={() => router.push("/checkout")}>
+        <TouchableOpacity
+          style={styles.checkoutButton}
+          onPress={() => router.push("/checkout")}
+        >
           <Text style={styles.checkoutText}>Checkout</Text>
         </TouchableOpacity>
       </View>
 
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
-        <Ionicons name="home" size={24} color="black"/>
-        <MaterialIcons name="local-pizza" size={24} color="black"/>
-        <Ionicons name="cart" size={24} color="black"/>
-        <Ionicons name="person" size={24} color="black"/>
-      
+        <Ionicons name="home" size={24} color="black" />
+        <MaterialIcons name="local-pizza" size={24} color="black" />
+        <Ionicons name="cart" size={24} color="black" />
+        <Ionicons name="person" size={24} color="black" />
       </View>
     </View>
   );
@@ -133,14 +146,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: 16,
-    paddingTop: 40, 
+    paddingTop: 40,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 40,
-    // marginTop: 20,  
+    // marginTop: 20,
   },
   backArrow: {
     fontSize: 30,
@@ -226,7 +239,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     paddingVertical: 12,
-    borderTopWidth:-5,
+    borderTopWidth: -5,
     borderColor: "#ddd",
   },
   navItem: {

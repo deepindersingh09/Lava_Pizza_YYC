@@ -19,9 +19,9 @@ export default function Checkout() {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
-          {/* <Ionicons name="back-arrow" size={28} color="black"/> */}
+          <MaterialIcons name="arrow-back" size={28} color="black" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Delivery</Text>
+        <Text style={styles.headerTitle}>Checkout</Text>
         <View style={{ width: 30 }} />
       </View>
 
@@ -41,25 +41,38 @@ export default function Checkout() {
       {/* Payment Methods */}
       <Text style={styles.sectionTitle}>Payment Methods</Text>
       {[
-        { id: 1, type: "MasterCard", last4: "1234", name: "Zaiden" },
-        { id: 2, type: "Visa", last4: "1234", name: "Zaiden" },
-        { id: 3, type: "Visa", last4: "1234", name: "Zaiden" },
+        { id: 1, type: "MasterCard", last4: "9876", name: "Zaiden" },
+        { id: 2, type: "Visa", last4: "5432", name: "Zaiden" },
+        { id: 3, type: "Visa", last4: "1023", name: "Zaiden" },
       ].map((card) => (
         <TouchableOpacity
           key={card.id}
           style={[
             styles.cardRow,
-            selectedPayment === card.id && { borderColor: "#FFD700", borderWidth: 2 },
+            selectedPayment === card.id && {
+              borderColor: "#FFD700",
+              borderWidth: 2,
+            },
           ]}
           onPress={() => setSelectedPayment(card.id)}
         >
-          <Text style={styles.cardText}>
-            💳 {card.type} ••••{card.last4} {"\n"}
-            <Text style={{ color: "gray" }}>{card.name}</Text>
-          </Text>
-          <Text style={{ fontSize: 20 }}>
-            {selectedPayment === card.id ? "●" : "○"}
-          </Text>
+          <View style={{flexDirection: "row", alignItems: "center"}}>
+            <MaterialIcons name="credit-card" size={24} color="black" style={{marginRight: 8}}/>
+            <View>
+              <Text style={styles.cardText}>{card.type} ....{card.last4}</Text>
+              <Text style={{color: "gray", fontSize: 13}}>{card.name}</Text>
+            </View>
+
+          </View>
+          <MaterialIcons
+            name={
+              selectedPayment === card.id
+                ? "radio-button-checked"
+                : "radio-button-unchecked"
+            }
+            size={24}
+            color={selectedPayment === card.id ? "#FFD700" : "gray"}
+          />
         </TouchableOpacity>
       ))}
 
@@ -69,19 +82,19 @@ export default function Checkout() {
 
       {/* Order Summary */}
       <View style={styles.summaryBox}>
-        <Text style={styles.summaryText}>Subtotal </Text> 
+        <Text style={styles.summaryText}>Subtotal </Text>
         <Text style={styles.price}>$61.93</Text>
         <Text style={styles.summaryText}>Delivery Charges </Text>
         <Text style={styles.price}></Text>
         <Text style={styles.summaryText}>Tax </Text>
         <Text style={styles.price}></Text>
-        <Text style={styles.totalText}>Total </Text> 
-        <Text style={styles.totalPrice}>$74.88</Text> 
+        <Text style={styles.totalText}>Total </Text>
+        <Text style={styles.totalPrice}>$74.88</Text>
       </View>
 
       {/* Place Order Button */}
       <TouchableOpacity style={styles.placeOrderBtn}>
-        <Text style={styles.placeOrderText}>Place Order   $74.88</Text>
+        <Text style={styles.placeOrderText}>Place Order $74.88</Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -175,7 +188,7 @@ const styles = StyleSheet.create({
   },
   price: {
     position: "absolute",
-    right: 16, 
+    right: 16,
   },
   totalPrice: {
     fontWeight: "bold",
@@ -194,6 +207,17 @@ const styles = StyleSheet.create({
   summaryRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 6, 
+    marginBottom: 6,
+  },
+  iconRow: {
+    flexDirection: "row",
+    alignItems: "center", 
+  }, 
+  iconSpacing: {
+    marginRight: 8, 
+  },
+  cardHolder: {
+    color: "gray",
+    fontSize: 13, 
   }
 });

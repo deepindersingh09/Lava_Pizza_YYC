@@ -1,6 +1,8 @@
 import { ScrollView, View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import {useRouter} from "expo-router"; 
+import React from 'react';
 
 const USER_NAME = 'Hi, there';
 
@@ -40,10 +42,11 @@ const imgSrc = (img: any) => (typeof img === 'string' ? { uri: img } : img);
 
 
 export default function HomeScreen() {
+  const router = useRouter(); 
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
       <View style={styles.topBar}>
-        <TouchableOpacity><Ionicons name="menu" size={26} color="#000" /></TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push("/menuLines")}><Ionicons name="menu" size={26} color="#000" /></TouchableOpacity>
         <TouchableOpacity><Ionicons name="notifications-outline" size={26} color="#000" /></TouchableOpacity>
       </View>
 
