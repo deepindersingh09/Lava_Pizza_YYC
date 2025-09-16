@@ -1,4 +1,3 @@
-// app/auth/signup.tsx
 import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Link, useRouter } from 'expo-router';
@@ -24,7 +23,7 @@ export default function Signup() {
     try {
       const cred = await createUserWithEmailAndPassword(auth, email.trim(), password);
 
-      // send verification email
+    
       await sendEmailVerification(cred.user);
       await signOut(auth);
 

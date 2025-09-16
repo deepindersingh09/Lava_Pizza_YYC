@@ -72,7 +72,7 @@ export default function Wallet() {
 
   return (
     <SafeAreaView style={styles.safe} edges={['left','right','bottom']}>
-      {/* Header (if your root stack hides headers) */}
+      
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} color="#111" />
@@ -81,7 +81,7 @@ export default function Wallet() {
         <View style={{ width: 24 }} />
       </View>
 
-      {/* Card list */}
+      
       <FlatList
         data={cards}
         keyExtractor={(c) => c.id}
@@ -95,7 +95,7 @@ export default function Wallet() {
         }
       />
 
-      {/* Primary action */}
+      
       <View style={styles.footer}>
         <TouchableOpacity style={styles.addBtn} onPress={addDummy}>
           <Ionicons name="add" size={20} color="#111" />

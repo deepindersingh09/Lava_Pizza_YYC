@@ -29,7 +29,7 @@ export default function Payment() {
 
   const handleSave = () => {
     console.log("Form submitted:", form);
-    // Add API call or navigation after saving
+    
   };
 
   return (
