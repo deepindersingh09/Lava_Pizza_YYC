@@ -2,15 +2,18 @@
 import React from 'react';
 import {
   DrawerContentScrollView,
+  createDrawerNavigator,
   type DrawerContentComponentProps,
 } from '@react-navigation/drawer';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, withLayoutContext } from 'expo-router';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
-// If you use Firebase auth, uncomment these two lines:
-// import { signOut } from 'firebase/auth';
-// import { auth } from '../lib/firebase';
+import { signOut } from 'firebase/auth';
+import { auth } from '../lib/firebase';
+const Drawer = createDrawerNavigator();
+export const DrawerLayout = withLayoutContext(Drawer.Navigator);
+
 
 const Row = ({
   icon,

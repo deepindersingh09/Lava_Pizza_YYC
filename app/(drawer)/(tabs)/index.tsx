@@ -5,35 +5,35 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const USER_NAME = 'Hi, there';
 
 const deals = [
-  { id: 'a', title: 'Deal A', price: 24.99, img: require('../../assets/images/menu/menu_pizza.png') },
-  { id: 'b', title: 'Deal B', price: 26.99, img: require('../../assets/images/menu/menu_pizza.png') },
-  { id: 'c', title: 'Deal C', price: 31.99, img: require('../../assets/images/menu/menu_pizza.png') },
-  { id: 'd', title: 'Deal D', price: 31.99, img: require('../../assets/images/menu/menu_pizza.png') },
+  { id: 'a', title: 'Deal A', price: 24.99, img: require('../../../assets/images/menu/menu_pizza.png') },
+  { id: 'b', title: 'Deal B', price: 26.99, img: require('../../../assets/images/menu/menu_pizza.png') },
+  { id: 'c', title: 'Deal C', price: 31.99, img: require('../../../assets/images/menu/menu_pizza.png') },
+  { id: 'd', title: 'Deal D', price: 31.99, img: require('../../../assets/images/menu/menu_pizza.png') },
 ];
 
 const specials = [
-  { id: 'sp1', title: 'Samosa Poutine', img: require('../../assets/images/menu/samosa_poutine.jpg') },
-  { id: 'sp2', title: 'Shahi Fries', img: require('../../assets/images/menu/shahi_fries.png') },
-  { id: 'sp3', title: 'Lava Tikki', img: require('../../assets/images/menu/Lava_Tikki.png') },
-  { id: 'sp4', title: 'Devil Fries', img: require('../../assets/images/menu/devil_fries.jpg') },
+  { id: 'sp1', title: 'Samosa Poutine', img: require('../../../assets/images/menu/samosa_poutine.jpg') },
+  { id: 'sp2', title: 'Shahi Fries', img: require('../../../assets/images/menu/shahi_fries.png') },
+  { id: 'sp3', title: 'Lava Tikki', img: require('../../../assets/images/menu/Lava_Tikki.png') },
+  { id: 'sp4', title: 'Devil Fries', img: require('../../../assets/images/menu/devil_fries.jpg') },
 ];
 
 const categories = [
-  { id: 'c1', title: 'Pasta', img: require('../../assets/images/menu/pasta.png') },
-  { id: 'c2', title: 'Gourmet Pizza', img: require('../../assets/images/menu/pizza2.png') },
-  { id: 'c3', title: 'Pizza', img: require('../../assets/images/menu/pizza3.jpg') },
-  { id: 'c4', title: 'Double Pizza Deals', img: require('../../assets/images/menu/double_pizza.png') },
-  { id: 'c5', title: 'Appetizers', img: require('../../assets/images/menu/appetizers.png') },
-  { id: 'c6', title: 'Drinks & Dips', img: require('../../assets/images/menu/drinks.png') },
-  { id: 'c7', title: 'Chicken Wings', img: require('../../assets/images/menu/chicken_wings.png') },
-  { id: 'c8', title: 'Poutines', img: require('../../assets/images/menu/poutines.png') },
-  { id: 'c9', title: 'Pizza Subs', img: require('../../assets/images/menu/pizza_subs.png') },
-  { id: 'c10', title: 'Shawarma Wraps', img: require('../../assets/images/menu/shawarma_wraps.png') },
-  { id: 'c11', title: 'Sides', img: require('../../assets/images/menu/sides.png') }, // fixed label
-  { id: 'c12', title: 'Walk-In Specials', img: require('../../assets/images/menu/walk_in_specials.png') },
-  { id: 'c13', title: 'Meals', img: require('../../assets/images/menu/meals.png') },
-  { id: 'c14', title: 'Salads', img: require('../../assets/images/menu/salads.png') },
-  { id: 'c15', title: 'Cakes', img: require('../../assets/images/menu/cakes.png') },
+  { id: 'c1', title: 'Pasta', img: require('../../../assets/images/menu/pasta.png') },
+  { id: 'c2', title: 'Gourmet Pizza', img: require('../../../assets/images/menu/pizza2.png') },
+  { id: 'c3', title: 'Pizza', img: require('../../../assets/images/menu/pizza3.jpg') },
+  { id: 'c4', title: 'Double Pizza Deals', img: require('../../../assets/images/menu/double_pizza.png') },
+  { id: 'c5', title: 'Appetizers', img: require('../../../assets/images/menu/appetizers.png') },
+  { id: 'c6', title: 'Drinks & Dips', img: require('../../../assets/images/menu/drinks.png') },
+  { id: 'c7', title: 'Chicken Wings', img: require('../../../assets/images/menu/chicken_wings.png') },
+  { id: 'c8', title: 'Poutines', img: require('../../../assets/images/menu/poutines.png') },
+  { id: 'c9', title: 'Pizza Subs', img: require('../../../assets/images/menu/pizza_subs.png') },
+  { id: 'c10', title: 'Shawarma Wraps', img: require('../../../assets/images/menu/shawarma_wraps.png') },
+  { id: 'c11', title: 'Sides', img: require('../../../assets/images/menu/sides.png') }, // fixed label
+  { id: 'c12', title: 'Walk-In Specials', img: require('../../../assets/images/menu/walk_in_specials.png') },
+  { id: 'c13', title: 'Meals', img: require('../../../assets/images/menu/meals.png') },
+  { id: 'c14', title: 'Salads', img: require('../../../assets/images/menu/salads.png') },
+  { id: 'c15', title: 'Cakes', img: require('../../../assets/images/menu/cakes.png') },
 ];
 
 const imgSrc = (img: any) => (typeof img === 'string' ? { uri: img } : img);
@@ -83,8 +83,7 @@ export default function HomeScreen() {
             <TouchableOpacity key={c.id} style={styles.gridCard} activeOpacity={0.9}>
               <Image source={imgSrc(c.img)} style={styles.gridImage} />
               <Text numberOfLines={2} style={styles.gridTitle}>{c.title}</Text>
-            </
-TouchableOpacity>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
