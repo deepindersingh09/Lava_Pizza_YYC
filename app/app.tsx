@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './(tabs)';
+import HomeScreen from './(drawer)/(tabs)';
 import PickupScreen from './pickup_location';
 
 
