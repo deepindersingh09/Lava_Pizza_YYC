@@ -52,7 +52,7 @@ export default function OrderHistory() {
 
         <TouchableOpacity onPress={handleClearHistory}>
           <Text style={styles.clearText}>Clear History</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> 
       </View>
 
     
@@ -63,7 +63,7 @@ export default function OrderHistory() {
             {order.items.map((item, index) => (
               <View style={styles.itemRow} key={index}>
                 <Text style={styles.itemName}>{item.name}</Text>
-                <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
+                <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text> 
               </View>
             ))}
             <View style={styles.totalRow}>
