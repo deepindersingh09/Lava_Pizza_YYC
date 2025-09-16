@@ -1,4 +1,3 @@
-// app/auth/login.tsx
 import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Link, useRouter } from 'expo-router';
@@ -20,8 +19,8 @@ export default function Login() {
 
       // Block unverified accounts and resend the email
       if (!cred.user.emailVerified) {
-        await sendEmailVerification(cred.user); // resend link
-        await signOut(auth); // keep them logged out
+        await sendEmailVerification(cred.user); 
+        await signOut(auth); 
         Alert.alert(
           'Email not verified',
           'We re-sent the verification link. Please verify your email, then log in.'
@@ -29,7 +28,7 @@ export default function Login() {
         return;
       }
 
-      //  Verified -> proceed
+      
       router.replace('/start');
     } catch (e: any) {
       Alert.alert('Sign in failed', e?.message ?? 'Unable to sign in');
@@ -38,7 +37,7 @@ export default function Login() {
     }
   };
 
-  //  Guest path (no auth)
+  
   const handleGuest = () => {
     router.replace('/start');
   };

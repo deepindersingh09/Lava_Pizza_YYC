@@ -1,4 +1,4 @@
-// app/index.tsx
+
 import React from 'react';
 import { useEffect } from 'react';
 import { View, StyleSheet, Image, Dimensions } from 'react-native';

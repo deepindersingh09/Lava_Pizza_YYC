@@ -12,7 +12,7 @@ import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 export default function OrderHistory() {
   const router = useRouter();
 
-  // Dummy order data (replace with API data) 
+
   const orders = [
     {
       id: 1,
@@ -37,12 +37,12 @@ export default function OrderHistory() {
 
   const handleClearHistory = () => {
     console.log("Clear history tapped");
-    // implement clearing logic here
+    
   };
 
   return (
     <View style={styles.container}>
-      {/* Header */}
+    
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={28} color="black" />
@@ -55,7 +55,7 @@ export default function OrderHistory() {
         </TouchableOpacity>
       </View>
 
-      {/* Order History List */}
+    
       <ScrollView contentContainerStyle={styles.content}>
         {orders.map((order) => (
           <View key={order.id} style={styles.orderCard}>
@@ -74,7 +74,7 @@ export default function OrderHistory() {
         ))}
       </ScrollView>
 
-      {/* Bottom Navigation */}
+    
       <View style={styles.bottomNav}>
         <Ionicons name="home-outline" size={26} color="black" />
         <Ionicons name="restaurant-outline" size={26} color="black" />

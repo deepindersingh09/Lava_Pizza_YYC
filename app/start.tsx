@@ -30,13 +30,13 @@ export default function Start() {
       style={styles.bg}
       imageStyle={{ opacity: 0.2 }}
     >
-      {/* Top Branding */}
+      
       <View style={styles.top}>
         <Text style={styles.brand}>LAVA PIZZA</Text>
         <Text style={styles.tag}>Fuel Your Cravings!</Text>
       </View>
 
-      {/* Center Section */}
+      
       <View style={styles.center}>
         <Text style={styles.title}>Your Pizza Journey starts here!</Text>
 
@@ -55,7 +55,7 @@ export default function Start() {
         </TouchableOpacity>
       </View>
 
-      {/* Bottom Buttons */}
+    
       <View style={styles.bottomRow}>
         <Pressable
           style={({ pressed }) => [

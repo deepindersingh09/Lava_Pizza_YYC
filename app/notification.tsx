@@ -1,4 +1,3 @@
-// app/(tabs)/notification.tsx
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   View,
@@ -11,14 +10,14 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 
-// Corrected import (file renamed from NotoficationCard -> NotificationCard)
+
 import NotificationCard, {
   NotificationItem,
 } from '../components/NotificationCard';
 
 const STORAGE_KEY = '@lava_pizza_notifications_v1';
 
-// Seed data used when nothing exists in storage yet
+
 const seed: NotificationItem[] = [
   {
     id: 'n1',
@@ -52,7 +51,7 @@ export default function NotificationScreen() {
   const [items, setItems] = useState<NotificationItem[]>([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  // Load from AsyncStorage (or seed on first run)
+  
   useEffect(() => {
     (async () => {
       try {
@@ -69,7 +68,7 @@ export default function NotificationScreen() {
     })();
   }, []);
 
-  // Helper to persist any list changes to storage
+  
   const persist = useCallback(async (next: NotificationItem[]) => {
     try {
       setItems(next);
@@ -79,26 +78,26 @@ export default function NotificationScreen() {
     }
   }, []);
 
-  // Pull-to-refresh handler (simulated network)
+  
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     await new Promise((r) => setTimeout(r, 700));
     setRefreshing(false);
   }, []);
 
-  // Derived count of unread
+  
   const unreadCount = useMemo(
     () => items.filter((i) => !i.read).length,
     [items]
   );
 
-  // Mark everything as read
+  
   const markAllRead = useCallback(() => {
     const next = items.map((i) => ({ ...i, read: true }));
     persist(next);
   }, [items, persist]);
 
-  // Remove everything (with confirm)
+  
   const clearAll = useCallback(() => {
     Alert.alert('Clear all?', 'This will remove all notifications.', [
       { text: 'Cancel', style: 'cancel' },
@@ -110,7 +109,7 @@ export default function NotificationScreen() {
     ]);
   }, [persist]);
 
-  // Toggle a single item read/unread
+
   const toggleRead = useCallback(
     (id: string) => {
       const next = items.map((i) =>
@@ -121,7 +120,7 @@ export default function NotificationScreen() {
     [items, persist]
   );
 
-  // Delete a single item
+  
   const removeItem = useCallback(
     (id: string) => {
       const next = items.filter((i) => i.id !== id);
@@ -179,8 +178,8 @@ export default function NotificationScreen() {
       }
       renderItem={({ item }) => (
         <TouchableOpacity
-          onLongPress={() => removeItem(item.id)} // hold to delete
-          onPress={() => toggleRead(item.id)}     // tap to toggle read/unread
+          onLongPress={() => removeItem(item.id)} 
+          onPress={() => toggleRead(item.id)}     
           activeOpacity={0.8}
         >
           <NotificationCard item={item} />
