@@ -70,9 +70,7 @@ export default function Cart() {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="arrow-back" size={28} color="black" />
-        </TouchableOpacity>
+
         <Text style={styles.headerTitle}>My Cart</Text>
         <Text style={styles.itemCount}>{items.length} items</Text>
       </View>
@@ -129,14 +127,6 @@ export default function Cart() {
           <Text style={styles.checkoutText}>Checkout</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
-        <Ionicons name="home" size={24} color="black" />
-        <MaterialIcons name="local-pizza" size={24} color="black" />
-        <Ionicons name="cart" size={24} color="black" />
-        <Ionicons name="person" size={24} color="black" />
-      </View>
     </View>
   );
 }
@@ -153,10 +143,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 40,
-    // marginTop: 20,
-  },
-  backArrow: {
-    fontSize: 30,
   },
   headerTitle: {
     fontSize: 18,
@@ -209,10 +195,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     fontSize: 16,
   },
-  deleteIcon: {
-    fontSize: 20,
-    marginLeft: 6,
-  },
   footer: {
     paddingVertical: 12,
     borderTopWidth: 1,
@@ -234,15 +216,5 @@ const styles = StyleSheet.create({
   checkoutText: {
     fontSize: 16,
     fontWeight: "bold",
-  },
-  bottomNav: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    paddingVertical: 12,
-    borderTopWidth: -5,
-    borderColor: "#ddd",
-  },
-  navItem: {
-    fontSize: 20,
   },
 });
