@@ -9,9 +9,7 @@ export default function Profile() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="arrow-back" size={28} color="black" />
-        </TouchableOpacity>
+        
         <Text style={styles.headerTitle}>Account</Text>
         <View style={{ width: 30 }}></View>
         {/* Empty space so that account text could stay centered */}
@@ -20,7 +18,7 @@ export default function Profile() {
       {/* Profile Page */}
       <View style={styles.profileSection}>
         <Image
-          source={require("../../assets/images/profile_picture.png")}
+          source={require("../../../assets/images/profile_picture.png")}
           style={styles.profilepicture}
         />
 

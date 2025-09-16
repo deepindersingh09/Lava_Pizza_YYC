@@ -14,7 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 // Corrected import (file renamed from NotoficationCard -> NotificationCard)
 import NotificationCard, {
   NotificationItem,
-} from '../../components/NotificationCard';
+} from '../components/NotificationCard';
 
 const STORAGE_KEY = '@lava_pizza_notifications_v1';
 
