@@ -20,7 +20,7 @@ export default function Profile() {
       {/* Profile Page */}
       <View style={styles.profileSection}>
         <Image
-          source={require("../../assets/images/profile_picture.png")}
+          source={require("../../../assets/images/profile_picture.png")}
           style={styles.profilepicture}
         />
 
@@ -58,7 +58,7 @@ export default function Profile() {
               }else if (option === "Order History") {
                 router.push("/order_history"); 
               }else if (option === "Update Delivery Info") {
-                router.push("/update_delivery_info"); 
+                router.push("/delivery_address"); 
               }
             }}
           >
