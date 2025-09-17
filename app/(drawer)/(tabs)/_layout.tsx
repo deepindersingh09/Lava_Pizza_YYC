@@ -1,4 +1,3 @@
-// app/(drawer)/(tabs)/_layout.tsx
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { Pressable } from 'react-native';
