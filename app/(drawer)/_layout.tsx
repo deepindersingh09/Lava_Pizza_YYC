@@ -17,7 +17,15 @@ export default function DrawerLayout() {
             backgroundColor: '#FFF3DC', // pale yellow like your mock
           },
         }}
-      />
+      >
+        {/* Individual drawer pages (must exist under app/(drawer)/...) */}
+        <Drawer.Screen name="(tabs)" options={{ title: 'Home' }} />
+        <Drawer.Screen name="favourites" options={{ title: 'Favourites' }} />
+        <Drawer.Screen name="wallet" options={{ title: 'My Wallet' }} />
+        <Drawer.Screen name="faq" options={{ title: 'FAQs' }} />
+        <Drawer.Screen name="support" options={{ title: 'Support' }} />
+        <Drawer.Screen name="settings" options={{ title: 'Settings' }} />
+      </Drawer>
     </GestureHandlerRootView>
   );
 }
