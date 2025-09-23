@@ -3,17 +3,17 @@ import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity, ScrollView }
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 const crustOptions = [
-  { name: 'Thin Crust', image: require('./assets/thin.png') },
-  { name: 'Thick Crust', image: require('./assets/thick.png') },
-  { name: 'Gluten Free', image: require('./assets/glutenfree.png') },
+  { name: 'Thin Crust', image: require('../assets/images/menu/thin.jpeg') },
+  { name: 'Thick Crust', image: require('../assets/images/menu/thick.jpeg') },
+  { name: 'Gluten Free', image: require('../assets/images/menu/pizza2.png') },
 ];
 
 const pizzas = [
-  { name: 'Volcanic Pizza', price: '$11.99', image: require('./assets/pizza.png') },
-  { name: 'Shawarma Pizza', price: '$15.99', image: require('./assets/pizza.png') },
-  { name: 'Butter Chicken Pizza', price: '$15.99', image: require('./assets/pizza.png') },
-  { name: 'Halal Meat Lovers', price: '$15.99', image: require('./assets/pizza.png') },
-  { name: 'Veggie Pesto Pizza', price: '$15.99', image: require('./assets/pizza.png') },
+  { name: 'Volcanic Pizza', price: '$11.99', image: require('../assets/images/menu/pizza2.png') },
+  { name: 'Shawarma Pizza', price: '$15.99', image: require('../assets/images/menu/pizza2.png') },
+  { name: 'Butter Chicken Pizza', price: '$15.99', image: require('../assets/images/menu/pizza2.png') },
+  { name: 'Halal Meat Lovers', price: '$15.99', image: require('../assets/images/menu/pizza2.png') },
+  { name: 'Veggie Pesto Pizza', price: '$15.99', image: require('../assets/images/menu/pizza2.png') },
 ];
 
 export default function App() {

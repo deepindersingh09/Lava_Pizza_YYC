@@ -51,7 +51,7 @@ export default function OrderStatusScreen() {
 
       {/* Delivery Address */}
       <Text style={styles.sectionTitle}>Delivery Address</Text>
-      <Image source={require("./assets/pizza.png")} style={styles.map} />
+      <Image source={require("../assets/images/menu/pizza2.png")} style={styles.map} />
     </View>
   );
 }
