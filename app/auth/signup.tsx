@@ -4,7 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'reac
 import { Link, useRouter } from 'expo-router';
 import { createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
-import React = require('react');
+import React from 'react'; 
 
 export default function Signup() {
   const router = useRouter();

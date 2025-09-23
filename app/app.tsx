@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './(tabs)/homeScreen';
 import Menu from './main-menu';
-import IndividualItem from './screens/individual-item';
+import IndividualItem from './screens/individual-item'; 
 import PickupScreen from './pickup_location';
 
 
@@ -14,7 +14,7 @@ export type RootStackParamList = {
   Pickup: undefined;
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
