@@ -12,6 +12,7 @@ export default function Profile() {
     "General",
     "Payment",
     "Order History",
+    "Track Order", 
     "Update Delivery Info",
   ];
 
@@ -55,7 +56,11 @@ export default function Profile() {
               else if (option === "Notifications")
                 router.push("/(drawer)/(tabs)/home/notification");
               else if (option === "Payment") router.push("/payment");
-              else if (option === "Order History") router.push("/order_history");
+              else if (option === "Order History")
+                router.push("../../../orders");
+              else if (option === "Track Order")
+                router.push("../../../order_tracking/12345"); 
+                // 👆 replace 12345 with actual orderId dynamically
               else if (option === "Update Delivery Info")
                 router.push("/delivery_address");
             }}
@@ -66,7 +71,7 @@ export default function Profile() {
         ))}
       </View>
 
-      {/* Logout Button (only once) */}
+      {/* Logout Button */}
       <TouchableOpacity style={styles.logoutButton} onPress={() => {/* signOut() */}}>
         <Text style={styles.logoutText}>Log Out of Account</Text>
       </TouchableOpacity>
@@ -77,7 +82,7 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff", // fixed
+    backgroundColor: "#fff",
     padding: 16,
     paddingTop: 40,
   },
@@ -94,7 +99,11 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   profilepicture: {
-    width: 70, height: 70, borderRadius: 35, marginRight: 15, marginLeft: 25,
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    marginRight: 15,
+    marginLeft: 25,
   },
   profileText: { flex: 1, marginLeft: 10 },
   nameRow: { flexDirection: "row", alignItems: "center" },

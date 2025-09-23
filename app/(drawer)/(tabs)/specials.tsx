@@ -15,7 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 const crustOptions = [
   { name: 'Thin Crust', image: require('../../../assets/images/menu/thin.jpeg') },
   { name: 'Thick Crust', image: require('../../../assets/images/menu/thick.jpeg') },
-  { name: 'Gluten Free', image: require('../../../assets/images/menu/thick.jpeg') },
+  { name: 'Gluten Free', image: require('../../../assets/images/menu/pizza3.jpg') },
 ];
 
 const pizzas = [
