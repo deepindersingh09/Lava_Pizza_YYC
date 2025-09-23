@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useRouter } from "expo-router";
+/// gggdjsgdjsdvshsjhjkahs 
 
 export default function Checkout() {
   const router = useRouter();
