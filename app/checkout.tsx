@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 /// gggdjsgdjsdvshsjhjkahs 
+// commits by ravneet 
+// import React from 'react'; 
 
 export default function Checkout() {
   const router = useRouter();
