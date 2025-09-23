@@ -21,7 +21,7 @@ export default function PickupScreen() {
       {
         text: 'OK',
         
-        onPress: () => router.replace('/(tabs)'),
+        onPress: () => router.replace('/(drawer)/(tabs)/home'),
       },
     ]);
   };

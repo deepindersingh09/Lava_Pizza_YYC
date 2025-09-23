@@ -25,14 +25,14 @@ export default function Delivery() {
 
   const handleSave = () => {
     console.log({ address, apt, city, postal, province, country });
-    router.replace('/(tabs)');
+    router.replace('/(drawer)/(tabs)/home');
   };
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.replace('/(tabs)')}>
+        <TouchableOpacity onPress={() => router.replace('/(drawer)/(tabs)/home')}>
           <Text style={styles.backArrow}>←</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Delivery</Text>
