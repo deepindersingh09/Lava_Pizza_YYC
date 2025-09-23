@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, useLayoutEffect } from 'react';
 import {
   View,
   Text,
@@ -6,24 +6,21 @@ import {
   RefreshControl,
   TouchableOpacity,
   Alert,
+  StyleSheet,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from 'expo-router';
 
-
-import NotificationCard, {
-  NotificationItem,
-} from '../components/NotificationCard';
+import NotificationCard, { NotificationItem } from '../../../../components/NotificationCard';
 
 const STORAGE_KEY = '@lava_pizza_notifications_v1';
-
 
 const seed: NotificationItem[] = [
   {
     id: 'n1',
     title: 'Order Confirmed',
-    body:
-      'Your Lava Pizza order #LP-10293 is confirmed. We’re firing up the oven! 🔥',
+    body: 'Your Lava Pizza order #LP-10293 is confirmed. We’re firing up the oven! 🔥',
     createdAt: new Date(Date.now() - 1000 * 60 * 10).toISOString(),
     type: 'order',
     read: false,
@@ -39,8 +36,7 @@ const seed: NotificationItem[] = [
   {
     id: 'n3',
     title: '2-For-1 Tuesdays',
-    body:
-      'Every Tuesday only: buy any large, get another free. Use code TUE2X at checkout.',
+    body: 'Every Tuesday: buy any large, get another free. Use code TUE2X at checkout.',
     createdAt: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(),
     type: 'promo',
     read: false,
@@ -48,10 +44,11 @@ const seed: NotificationItem[] = [
 ];
 
 export default function NotificationScreen() {
+  const navigation = useNavigation();
   const [items, setItems] = useState<NotificationItem[]>([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  
+  // Load / seed
   useEffect(() => {
     (async () => {
       try {
@@ -68,7 +65,7 @@ export default function NotificationScreen() {
     })();
   }, []);
 
-  
+  // Persist helper
   const persist = useCallback(async (next: NotificationItem[]) => {
     try {
       setItems(next);
@@ -78,49 +75,37 @@ export default function NotificationScreen() {
     }
   }, []);
 
-  
+  // Pull to refresh (mock)
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     await new Promise((r) => setTimeout(r, 700));
     setRefreshing(false);
   }, []);
 
-  
-  const unreadCount = useMemo(
-    () => items.filter((i) => !i.read).length,
-    [items]
-  );
+  const unreadCount = useMemo(() => items.filter((i) => !i.read).length, [items]);
 
-  
   const markAllRead = useCallback(() => {
+    if (!items.length) return;
     const next = items.map((i) => ({ ...i, read: true }));
     persist(next);
   }, [items, persist]);
 
-  
   const clearAll = useCallback(() => {
+    if (!items.length) return;
     Alert.alert('Clear all?', 'This will remove all notifications.', [
       { text: 'Cancel', style: 'cancel' },
-      {
-        text: 'Clear',
-        style: 'destructive',
-        onPress: () => persist([]),
-      },
+      { text: 'Clear', style: 'destructive', onPress: () => persist([]) },
     ]);
-  }, [persist]);
-
+  }, [items.length, persist]);
 
   const toggleRead = useCallback(
     (id: string) => {
-      const next = items.map((i) =>
-        i.id === id ? { ...i, read: !i.read } : i
-      );
+      const next = items.map((i) => (i.id === id ? { ...i, read: !i.read } : i));
       persist(next);
     },
     [items, persist]
   );
 
-  
   const removeItem = useCallback(
     (id: string) => {
       const next = items.filter((i) => i.id !== id);
@@ -129,42 +114,38 @@ export default function NotificationScreen() {
     [items, persist]
   );
 
-  const Header = (
-    <View style={{ paddingHorizontal: 16, paddingTop: 8, paddingBottom: 6 }}>
-      <Text style={{ fontSize: 22, fontWeight: '800' }}>Notifications</Text>
-      <Text style={{ color: '#666', marginTop: 2 }}>
+  // Configure the Stack header (title, back arrow is automatic)
+  useLayoutEffect(() => {
+    navigation.setOptions?.({
+      title: unreadCount ? `Notifications (${unreadCount})` : 'Notifications',
+      headerBackTitleVisible: false,
+      headerRight: () => (
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <TouchableOpacity
+            onPress={markAllRead}
+            disabled={!items.length}
+            style={{ paddingHorizontal: 8, opacity: items.length ? 1 : 0.4 }}
+          >
+            <Ionicons name="checkmark-done-outline" size={22} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={clearAll}
+            disabled={!items.length}
+            style={{ paddingHorizontal: 8, opacity: items.length ? 1 : 0.4 }}
+          >
+            <Ionicons name="trash-outline" size={22} />
+          </TouchableOpacity>
+        </View>
+      ),
+    });
+  }, [navigation, unreadCount, items.length, markAllRead, clearAll]);
+
+  // Optional subheader under the title for status text
+  const Subheader = (
+    <View style={{ paddingHorizontal: 16, paddingTop: 6, paddingBottom: 8 }}>
+      <Text style={{ color: '#666' }}>
         {unreadCount ? `${unreadCount} unread` : 'All caught up 🎉'}
       </Text>
-
-      <View style={{ flexDirection: 'row', gap: 12, marginTop: 10 }}>
-        <TouchableOpacity
-          onPress={markAllRead}
-          disabled={!items.length}
-          style={{
-            paddingVertical: 8,
-            paddingHorizontal: 12,
-            backgroundColor: '#FFF1BF',
-            borderRadius: 8,
-            opacity: items.length ? 1 : 0.5,
-          }}
-        >
-          <Text style={{ fontWeight: '700' }}>Mark all read</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={clearAll}
-          disabled={!items.length}
-          style={{
-            paddingVertical: 8,
-            paddingHorizontal: 12,
-            backgroundColor: '#FFE2E2',
-            borderRadius: 8,
-            opacity: items.length ? 1 : 0.5,
-          }}
-        >
-          <Text style={{ fontWeight: '700' }}>Clear all</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 
@@ -172,14 +153,12 @@ export default function NotificationScreen() {
     <FlatList
       data={items}
       keyExtractor={(i) => i.id}
-      ListHeaderComponent={Header}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
+      ListHeaderComponent={Subheader}
+      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       renderItem={({ item }) => (
         <TouchableOpacity
-          onLongPress={() => removeItem(item.id)} 
-          onPress={() => toggleRead(item.id)}     
+          onLongPress={() => removeItem(item.id)}
+          onPress={() => toggleRead(item.id)}
           activeOpacity={0.8}
         >
           <NotificationCard item={item} />
@@ -188,12 +167,14 @@ export default function NotificationScreen() {
       ListEmptyComponent={
         <View style={{ alignItems: 'center', marginTop: 48 }}>
           <Ionicons name="notifications-off" size={40} />
-          <Text style={{ marginTop: 8, color: '#777' }}>
-            No notifications yet
-          </Text>
+          <Text style={{ marginTop: 8, color: '#777' }}>No notifications yet</Text>
         </View>
       }
       contentContainerStyle={{ paddingBottom: 32 }}
     />
   );
 }
+
+const styles = StyleSheet.create({
+  // (no changes needed right now; kept for future)
+});

@@ -3,6 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'reac
 import { Link, useRouter } from 'expo-router';
 import { createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import React = require('react');
 
 export default function Signup() {
@@ -31,8 +33,8 @@ export default function Signup() {
         'Verify your email',
         'We sent a verification link to your inbox. Please verify, then sign in.'
       );
-
-      router.replace('/auth/login');
+      await AsyncStorage.removeItem('@order_mode');
+      router.replace('/start');
     } catch (e: any) {
       Alert.alert('Sign up failed', e.message);
     } finally {
