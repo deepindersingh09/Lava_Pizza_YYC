@@ -1,65 +1,54 @@
-// app/_layout.tsx
 import React, { useEffect, useState } from 'react';
-import { Drawer } from 'expo-router/drawer';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { onAuthStateChanged, type User } from 'firebase/auth';
-import { auth } from '../lib/firebase';
-import SideMenu from '../components/sidemenu';
-
-// keep splash until ready
-SplashScreen.preventAutoHideAsync();
+import { Slot, useRouter, usePathname } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { onAuthStateChanged, signOut, type User } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 
 export default function RootLayout() {
-  const [ready, setReady] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const [authReady, setAuthReady] = useState(false);
+  const [guestReady, setGuestReady] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const [guest, setGuest] = useState(false);
 
+  // Firebase session
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
-      setUser(u);
-      setTimeout(() => setReady(true), 800);
+      setUser(u ?? null);
+      setAuthReady(true);
     });
     return unsub;
   }, []);
 
+  // Local guest flag
   useEffect(() => {
-    if (ready) SplashScreen.hideAsync().catch(() => {});
-  }, [ready]);
+    (async () => {
+      const flag = await AsyncStorage.getItem('@guest_mode');
+      setGuest(flag === '1');
+      setGuestReady(true);
+    })();
+  }, []);
 
-  if (!ready) return null;
+  // If an old anonymous session exists, sign it out so it doesn't confuse the gate
+  useEffect(() => {
+    if (authReady && user?.isAnonymous) void signOut(auth);
+  }, [authReady, user]);
 
-  // Not logged in → plain stack for auth screens
-  if (!user) {
-    return (
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="auth/login" />
-        <Stack.Screen name="auth/signup" />
-      </Stack>
-    );
-  }
+  useEffect(() => {
+    if (!authReady || !guestReady) return;
 
-  // Logged in → Drawer wraps the app
-  return (
-    <Drawer
-      drawerContent={(props) => <SideMenu {...props} />}
-      screenOptions={{
-        headerShown: false,
-        drawerType: 'front',
-        drawerStyle: { width: 320, backgroundColor: '#faf6ea' },
-      }}
-    >
-      {/* Main app with tabs */}
-      <Drawer.Screen name="(tabs)" options={{ title: 'Home' }} />
+    const inAuth = pathname.startsWith('/auth');
+    const isAuthed = (!!user && !user.isAnonymous) || guest;
 
-      {/* Keep these navigable but hidden from the drawer list */}
-      <Drawer.Screen name="favourites" options={{ drawerItemStyle: { display: 'none' } }} />
-      <Drawer.Screen name="history"    options={{ drawerItemStyle: { display: 'none' } }} />
-      <Drawer.Screen name="wallet"     options={{ drawerItemStyle: { display: 'none' } }} />
-      <Drawer.Screen name="faq"        options={{ drawerItemStyle: { display: 'none' } }} />
-      <Drawer.Screen name="support"    options={{ drawerItemStyle: { display: 'none' } }} />
-      <Drawer.Screen name="settings"   options={{ drawerItemStyle: { display: 'none' } }} />
-      <Drawer.Screen name="notifications" options={{ drawerItemStyle: { display: 'none' } }} />
-      <Drawer.Screen name="orders"     options={{ drawerItemStyle: { display: 'none' } }} />
-    </Drawer>
-  );
+    // ✅ Only stop unauthenticated users from entering the app.
+    //    DO NOT push authed users away from /auth (so the screen stays visible).
+    if (!isAuthed && !inAuth) {
+      router.replace('/auth/login');   // or '/auth/signup'
+    }
+    // (No "if (isAuthed && inAuth) go to home" branch on purpose)
+  }, [authReady, guestReady, user, guest, pathname, router]);
+
+  if (!authReady || !guestReady) return null; // optional splash/loader
+  return <Slot />;
 }

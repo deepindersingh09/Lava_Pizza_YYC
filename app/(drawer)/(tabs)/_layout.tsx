@@ -1,41 +1,80 @@
-// app/(drawer)/(tabs)/_layout.tsx
+// app/(drawer)/(tabs)/_layout.tsx  (your file)
 import React from 'react';
-import { Tabs } from 'expo-router';
+import { Tabs, useRouter } from 'expo-router';
 import { Pressable } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from 'expo-router';
-import type { DrawerNavigationProp } from '@react-navigation/drawer';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { DrawerToggleButton } from '@react-navigation/drawer';
 
 export default function TabsLayout() {
-  const navigation = useNavigation<DrawerNavigationProp<any>>();
+  const router = useRouter();
 
   return (
     <Tabs
       screenOptions={{
         headerTitle: '',
         headerShadowVisible: false,
-        tabBarStyle: { height: 64 },
-
-        headerLeft: () => (
-          <Pressable
-            onPress={() => navigation.openDrawer()}
-            style={{ paddingHorizontal: 12 }}
-            accessibilityLabel="Open menu"
-          >
-            <Ionicons name="menu" size={24} />
-          </Pressable>
-        ),
-
+        // keep header for most screens (drawer + bell)
+        // headerShown: true,  // (default)
+        headerLeft: () => <DrawerToggleButton />,
         headerRight: () => (
-          <Pressable onPress={() => { /* router.push('/notifications'); */ }} style={{ paddingHorizontal: 12 }}>
+          <Pressable
+            onPress={() => router.push('/(drawer)/(tabs)/home/notification')}
+            style={{ marginRight: 12 }}
+            accessibilityRole="button"
+            accessibilityLabel="Notifications"
+          >
             <Ionicons name="notifications-outline" size={22} />
           </Pressable>
         ),
-      }}>
-      <Tabs.Screen name="index" options={{ title: 'Home', tabBarIcon: ({ focused, size }) => <Ionicons name="home-outline" size={size} /> }} />
-      <Tabs.Screen name="specials" options={{ title: 'Specials', tabBarIcon: ({ size }) => <Ionicons name="pricetags-outline" size={size} /> }} />
-      <Tabs.Screen name="cart" options={{ title: 'Cart', tabBarIcon: ({ size }) => <Ionicons name="cart-outline" size={size} /> }} />
-      <Tabs.Screen name="account" options={{ title: 'Account', tabBarIcon: ({ size }) => <Ionicons name="person-outline" size={size} /> }} />
+        tabBarShowLabel: true,
+      }}
+    >
+      <Tabs.Screen
+        name="home"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="specials"
+        options={{
+          title: 'Specials',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="pricetags-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="cart"
+        options={{
+          title: 'Cart',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="cart-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="account"
+        options={{
+          title: 'Account',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person-outline" size={size} color={color} />
+          ),
+        }}
+      />
+
+      {/* 👉 Hide Tabs header ONLY on the notifications route */}
+      <Tabs.Screen
+        name="home/notification"
+        options={{
+          headerShown: false,
+          // optional: also hide the tab bar while viewing notifications
+          // tabBarStyle: { display: 'none' },
+        }}
+      />
     </Tabs>
   );
 }

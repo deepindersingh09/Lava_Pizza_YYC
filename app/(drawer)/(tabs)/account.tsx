@@ -2,11 +2,12 @@
 import React from "react";
 import { useRouter } from "expo-router";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, Button } from "react-native";
 
 export default function Profile() {
   const router = useRouter();
   return (
+    
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity>
@@ -20,7 +21,7 @@ export default function Profile() {
       {/* Profile Page */}
       <View style={styles.profileSection}>
         <Image
-          source={require("../../assets/images/profile_picture.png")}
+          source={require("../../../assets/images/profile_picture.png")}
           style={styles.profilepicture}
         />
 
@@ -45,26 +46,29 @@ export default function Profile() {
           "Order History",
           "Update Delivery Info",
         ].map((option, index) => (
-          <TouchableOpacity
-            key={index} 
-            style={styles.optionRow}
-            onPress={() => {
-              if (option === "General") {
-                router.push("/general");
-              }else if (option === "Notifications") {
-                router.push("/notification");
-              }else if (option === "Payment") {
-                router.push("/payment"); 
-              }else if (option === "Order History") {
-                router.push("/order_history"); 
-              }else if (option === "Update Delivery Info") {
-                router.push("/update_delivery_info"); 
-              }
-            }}
-          >
-            <Text style={styles.optionText}>{option}</Text>
-            <Ionicons name="chevron-forward" size={22} color="black"></Ionicons>
-          </TouchableOpacity>
+          <React.Fragment key={index}>
+            <TouchableOpacity
+              style={styles.optionRow}
+              onPress={() => {
+                if (option === "General") {
+                  router.push("/general");
+                }else if (option === "Notifications") {
+                  router.push("/(drawer)/(tabs)/home/notification");
+                }else if (option === "Payment") {
+                  router.push("/payment"); 
+                }else if (option === "Order History") {
+                  router.push("/order_history"); 
+                }else if (option === "Update Delivery Info") {
+                  router.push("/delivery_address"); 
+                }
+              }}
+            >
+              <Text style={styles.optionText}>{option}</Text>
+              <Ionicons name="chevron-forward" size={22} color="black"></Ionicons>
+            </TouchableOpacity>
+        <Text style={styles.logoutText}>Log Out of Account</Text>
+          </React.Fragment>
+
         ))}
       </View>
 
