@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Login from '@/app/auth/login';
-const USER_NAME = 'Hi, there';
+const USER_NAME = 'Hi, There';
 
 const deals = [
   { id: 'a', title: 'Deal A', price: 24.99, img: require('../../../../assets/images/menu/menu_pizza.png') },
