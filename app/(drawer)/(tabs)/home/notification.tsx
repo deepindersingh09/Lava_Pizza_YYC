@@ -40,13 +40,14 @@ export default function Notifications() {
       </View>
 
       {/* Text Offers */}
-      <TouchableOpacity
-        style={styles.checkboxRow}
-        onPress={() => setTextOffers(!textOffers)}
-      >
-        <View style={[styles.checkbox, textOffers && { backgroundColor: '#222' }]} />
-        <Text style={styles.label}>Receive text offers and alerts</Text>
+      <TouchableOpacity onPress={() => setTextOffers(!textOffers)} style={styles.container}>
+        <View style={styles.checkbox}>
+          {textOffers && <Ionicons name="checkmark" size={20} color="white"/>}
+
+        </View>
+        <Text style={styles.label}>I agree to receive offers</Text>
       </TouchableOpacity>
+     
       <Text style={styles.subLabel}>
         I agree to receive text offers from Lava Pizza YYC.
       </Text>
@@ -66,15 +67,15 @@ const styles = StyleSheet.create({
   header: { fontSize: 18, fontWeight: '600', marginBottom: 16 },
   row: { marginBottom: 20 },
   rowSwitch: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
-  label: { fontSize: 15, fontWeight: '500', color: '#111' },
+  label: { fontSize: 16, fontWeight: '500', color: '#111' },
   subLabel: { fontSize: 13, color: '#666', marginTop: 4 },
   inputWrap: { flexDirection: 'row', alignItems: 'center', marginVertical: 10 },
   input: { flex: 1, backgroundColor: '#fff', borderRadius: 8, borderWidth: 1, borderColor: '#ddd', padding: 10 },
   checkboxRow: { flexDirection: 'row', alignItems: 'center', marginTop: 14 },
-  checkbox: { width: 18, height: 18, borderWidth: 1, borderColor: '#aaa', marginRight: 8 },
+  checkbox: { width: 24, height: 24, borderWidth: 2, borderColor: '#222', justifyContent: 'center', marginRight: 8, borderRadius: 5,},
   terms: { fontSize: 13, color: '#555', marginTop: 14, lineHeight: 20 },
   link: { color: '#000', fontWeight: '600' },
-});
+});    
 
 
 
