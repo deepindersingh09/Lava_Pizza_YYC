@@ -1,180 +1,77 @@
-import React, { useCallback, useEffect, useMemo, useState, useLayoutEffect } from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  RefreshControl,
-  TouchableOpacity,
-  Alert,
-  StyleSheet,
-} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Switch, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from 'expo-router';
 
-import NotificationCard, { NotificationItem } from '../../../../components/NotificationCard';
-
-const STORAGE_KEY = '@lava_pizza_notifications_v1';
-
-const seed: NotificationItem[] = [
-  {
-    id: 'n1',
-    title: 'Order Confirmed',
-    body: 'Your Lava Pizza order #LP-10293 is confirmed. We’re firing up the oven! 🔥',
-    createdAt: new Date(Date.now() - 1000 * 60 * 10).toISOString(),
-    type: 'order',
-    read: false,
-  },
-  {
-    id: 'n2',
-    title: 'Delivery On The Way',
-    body: 'Rider Jaspreet has picked up your order. ETA ~18 minutes.',
-    createdAt: new Date(Date.now() - 1000 * 60 * 45).toISOString(),
-    type: 'order',
-    read: true,
-  },
-  {
-    id: 'n3',
-    title: '2-For-1 Tuesdays',
-    body: 'Every Tuesday: buy any large, get another free. Use code TUE2X at checkout.',
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(),
-    type: 'promo',
-    read: false,
-  },
-];
-
-export default function NotificationScreen() {
-  const navigation = useNavigation();
-  const [items, setItems] = useState<NotificationItem[]>([]);
-  const [refreshing, setRefreshing] = useState(false);
-
-  // Load / seed
-  useEffect(() => {
-    (async () => {
-      try {
-        const raw = await AsyncStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          setItems(JSON.parse(raw));
-        } else {
-          setItems(seed);
-          await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
-        }
-      } catch (e) {
-        console.warn('Failed to load notifications', e);
-      }
-    })();
-  }, []);
-
-  // Persist helper
-  const persist = useCallback(async (next: NotificationItem[]) => {
-    try {
-      setItems(next);
-      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    } catch (e) {
-      console.warn('Failed to save notifications', e);
-    }
-  }, []);
-
-  // Pull to refresh (mock)
-  const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-    await new Promise((r) => setTimeout(r, 700));
-    setRefreshing(false);
-  }, []);
-
-  const unreadCount = useMemo(() => items.filter((i) => !i.read).length, [items]);
-
-  const markAllRead = useCallback(() => {
-    if (!items.length) return;
-    const next = items.map((i) => ({ ...i, read: true }));
-    persist(next);
-  }, [items, persist]);
-
-  const clearAll = useCallback(() => {
-    if (!items.length) return;
-    Alert.alert('Clear all?', 'This will remove all notifications.', [
-      { text: 'Cancel', style: 'cancel' },
-      { text: 'Clear', style: 'destructive', onPress: () => persist([]) },
-    ]);
-  }, [items.length, persist]);
-
-  const toggleRead = useCallback(
-    (id: string) => {
-      const next = items.map((i) => (i.id === id ? { ...i, read: !i.read } : i));
-      persist(next);
-    },
-    [items, persist]
-  );
-
-  const removeItem = useCallback(
-    (id: string) => {
-      const next = items.filter((i) => i.id !== id);
-      persist(next);
-    },
-    [items, persist]
-  );
-
-  // Configure the Stack header (title, back arrow is automatic)
-  useLayoutEffect(() => {
-    navigation.setOptions?.({
-      title: unreadCount ? `Notifications (${unreadCount})` : 'Notifications',
-      headerBackTitleVisible: false,
-      headerRight: () => (
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <TouchableOpacity
-            onPress={markAllRead}
-            disabled={!items.length}
-            style={{ paddingHorizontal: 8, opacity: items.length ? 1 : 0.4 }}
-          >
-            <Ionicons name="checkmark-done-outline" size={22} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={clearAll}
-            disabled={!items.length}
-            style={{ paddingHorizontal: 8, opacity: items.length ? 1 : 0.4 }}
-          >
-            <Ionicons name="trash-outline" size={22} />
-          </TouchableOpacity>
-        </View>
-      ),
-    });
-  }, [navigation, unreadCount, items.length, markAllRead, clearAll]);
-
-  // Optional subheader under the title for status text
-  const Subheader = (
-    <View style={{ paddingHorizontal: 16, paddingTop: 6, paddingBottom: 8 }}>
-      <Text style={{ color: '#666' }}>
-        {unreadCount ? `${unreadCount} unread` : 'All caught up 🎉'}
-      </Text>
-    </View>
-  );
+export default function Notifications() {
+  const [emailOffers, setEmailOffers] = useState(true);
+  const [textOffers, setTextOffers] = useState(true);
+  const [phoneNumber, setPhoneNumber] = useState('825-123-0654');
 
   return (
-    <FlatList
-      data={items}
-      keyExtractor={(i) => i.id}
-      ListHeaderComponent={Subheader}
-      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-      renderItem={({ item }) => (
-        <TouchableOpacity
-          onLongPress={() => removeItem(item.id)}
-          onPress={() => toggleRead(item.id)}
-          activeOpacity={0.8}
-        >
-          <NotificationCard item={item} />
-        </TouchableOpacity>
-      )}
-      ListEmptyComponent={
-        <View style={{ alignItems: 'center', marginTop: 48 }}>
-          <Ionicons name="notifications-off" size={40} />
-          <Text style={{ marginTop: 8, color: '#777' }}>No notifications yet</Text>
-        </View>
-      }
-      contentContainerStyle={{ paddingBottom: 32 }}
-    />
+    <ScrollView style={styles.container}>
+      <Text style={styles.header}>{'Notifications'}</Text>
+
+      {/* Push Notifications */}
+      <TouchableOpacity style={styles.row}>
+        <Text style={styles.label}>Push Notifications</Text>
+        <Text style={styles.subLabel}>Manage Push Notification Settings</Text>
+      </TouchableOpacity>
+
+      {/* Email Offers */}
+      <View style={styles.rowSwitch}>
+        <Text style={styles.label}>Receive email offers and alerts</Text>
+        <Switch
+          value={emailOffers}
+          onValueChange={setEmailOffers}
+          thumbColor={emailOffers ? '#FFC107' : '#ccc'}
+        />
+      </View>
+
+      {/* Phone Number */}
+      <Text style={styles.label}>Mobile Phone Number</Text>
+      <View style={styles.inputWrap}>
+        <TextInput
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
+          style={styles.input}
+          keyboardType="phone-pad"
+        />
+        <Ionicons name="eye-outline" size={22} color="#555" style={{ marginLeft: 6 }} />
+      </View>
+
+      {/* Text Offers */}
+      <TouchableOpacity
+        style={styles.checkboxRow}
+        onPress={() => setTextOffers(!textOffers)}
+      >
+        <View style={[styles.checkbox, textOffers && { backgroundColor: '#222' }]} />
+        <Text style={styles.label}>Receive text offers and alerts</Text>
+      </TouchableOpacity>
+      <Text style={styles.subLabel}>
+        I agree to receive text offers from Lava Pizza YYC.
+      </Text>
+
+      {/* Terms */}
+      <Text style={styles.terms}>
+        By enabling the option, you agree to receive promotional text messages from Lava Pizza YYC at the number provided. Message frequency may vary. Standard message and data rates may apply.{"\n\n"}
+        Consent is not required to make a purchase. You can opt out at any time by replying STOP. For help, reply HELP.{"\n\n"}
+        See our <Text style={styles.link}>Privacy Policy</Text> and <Text style={styles.link}>Terms & Conditions</Text> for more.
+      </Text>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  // (no changes needed right now; kept for future)
+  container: { flex: 1, backgroundColor: '#fff7e6', padding: 18 },
+  header: { fontSize: 18, fontWeight: '600', marginBottom: 16 },
+  row: { marginBottom: 20 },
+  rowSwitch: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
+  label: { fontSize: 15, fontWeight: '500', color: '#111' },
+  subLabel: { fontSize: 13, color: '#666', marginTop: 4 },
+  inputWrap: { flexDirection: 'row', alignItems: 'center', marginVertical: 10 },
+  input: { flex: 1, backgroundColor: '#fff', borderRadius: 8, borderWidth: 1, borderColor: '#ddd', padding: 10 },
+  checkboxRow: { flexDirection: 'row', alignItems: 'center', marginTop: 14 },
+  checkbox: { width: 18, height: 18, borderWidth: 1, borderColor: '#aaa', marginRight: 8 },
+  terms: { fontSize: 13, color: '#555', marginTop: 14, lineHeight: 20 },
+  link: { color: '#000', fontWeight: '600' },
 });

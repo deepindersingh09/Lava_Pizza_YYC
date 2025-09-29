@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword, sendEmailVerification, signOut } from '
 import { auth } from '../../lib/firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import React = require('react');
+import React from 'react'; 
 
 export default function Signup() {
   const router = useRouter();
