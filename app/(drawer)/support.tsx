@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Pressable,
+  Pressable, 
   Linking,
   Alert,
 } from "react-native";
@@ -14,7 +14,7 @@ import { Link, useRouter } from "expo-router";
 export default function Support() {
   const router = useRouter();
 
-  const open = async (url: string) => {
+  const open = async (url: string) => {       
     const can = await Linking.canOpenURL(url);
     if (!can) return Alert.alert("Unavailable", "This action isn't supported on your device.");
     return Linking.openURL(url);
@@ -63,7 +63,7 @@ export default function Support() {
           <Text style={styles.itemText}>Notifications & alerts</Text>
           <Ionicons name="chevron-forward" size={20} />
         </Pressable>
-        <Link href="/faq" asChild>
+        <Link href="/faq" asChild>     
           <Pressable style={styles.itemRow}>
             <Text style={styles.itemText}>FAQ</Text>
             <Ionicons name="chevron-forward" size={20} />
@@ -108,7 +108,7 @@ export default function Support() {
           </Pressable>
         </Link>
         <Link href="/policy/privacy" asChild>
-          <Pressable style={styles.itemRow}>
+          <Pressable style={styles.itemRow}>     
             <Text style={styles.itemText}>Privacy policy</Text>
             <Ionicons name="chevron-forward" size={20} />
           </Pressable>

@@ -75,3 +75,6 @@ const styles = StyleSheet.create({
   terms: { fontSize: 13, color: '#555', marginTop: 14, lineHeight: 20 },
   link: { color: '#000', fontWeight: '600' },
 });
+
+
+

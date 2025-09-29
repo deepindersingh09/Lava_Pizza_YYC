@@ -7,7 +7,7 @@ export default function FAQ() {
 
   const faqs = [
     {
-      question: "How do I place an order?",
+      question: "How do I place an order?",  
       answer:
         "Browse the menu, add items to your cart, then proceed to checkout to confirm payment and delivery details.",
     },
