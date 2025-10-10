@@ -4,8 +4,8 @@ import { Link, useRouter } from 'expo-router';
 import { createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from 'react';
 
-import React = require('react');
 
 export default function Signup() {
   const router = useRouter();
